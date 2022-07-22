@@ -7,6 +7,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 /* ***** MODIF PERSONNEL ***** */
+
 .black_color {
   color: #000000;
 }
@@ -26,7 +27,6 @@
 a,
 button {
   transition: all 0.3s ease-in-out;
-  outline: none !important;
 }
 
 a:hover {
@@ -476,10 +476,6 @@ nav .caret {
   background: rgba(0, 0, 0, 0.3);
 }
 
-button {
-  outline: none !important;
-}
-
 .btn-rd {
   border-radius: 40px;
 }
@@ -731,6 +727,16 @@ p {
   }
 }
 
+@media screen and (min-width: 766px) {
+  .icon_social {
+    display: flex;
+    height: 70px;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 50px;
+  }
+}
+
 h2 {
   font-size: 22px;
   line-height: 1.4em;
@@ -802,7 +808,7 @@ h4 {
 }
 
 .tc-white {
-  color: #f3976c !important;
+  color: #ffffff !important;
 }
 
 .btn-atomic-tangerine {
