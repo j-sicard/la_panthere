@@ -1,695 +1,668 @@
-/*!
- * @fileOverview TouchSwipe - jQuery Plugin
- * @version 1.6.18
- *
- * @author Matt Bryson http://www.github.com/mattbryson
- * @see https://github.com/mattbryson/TouchSwipe-Jquery-Plugin
- * @see http://labs.rampinteractive.co.uk/touchSwipe/
- * @see http://plugins.jquery.com/project/touchSwipe
- * @license
- * Copyright (c) 2010-2015 Matt Bryson
- * Dual licensed under the MIT or GPL Version 2 licenses.
- *
- */ !(function (a) {
+!(function (e) {
   "function" == typeof define && define.amd && define.amd.jQuery
-    ? define(["jquery"], a)
-    : a(
+    ? define(["jquery"], e)
+    : e(
         "undefined" != typeof module && module.exports
           ? require("jquery")
           : jQuery
       );
-})(function ($) {
+})(function (e) {
   "use strict";
-  function q(a) {
-    return (
-      a &&
-        void 0 === a.allowPageScroll &&
-        (void 0 !== a.swipe || void 0 !== a.swipeStatus) &&
-        (a.allowPageScroll = h),
-      void 0 !== a.click && void 0 === a.tap && (a.tap = a.click),
-      a || (a = {}),
-      (a = $.extend({}, $.fn.swipe.defaults, a)),
-      this.each(function () {
-        var c = $(this),
-          b = c.data(A);
-        b || ((b = new r(this, a)), c.data(A, b));
-      })
-    );
-  }
-  function r(E, r) {
-    function F(c) {
-      if (!(aj() || $(c.target).closest(r.excludedElements, D).length > 0)) {
-        var a = c.originalEvent ? c.originalEvent : c;
+  function n(n, D) {
+    function P(n) {
+      if (
+        !(
+          !0 === me.data(M + "_intouch") ||
+          e(n.target).closest(D.excludedElements, me).length > 0
+        )
+      ) {
+        var o = n.originalEvent ? n.originalEvent : n;
         if (
-          !a.pointerType ||
-          "mouse" != a.pointerType ||
-          0 != r.fallbackToMouseEvents
+          !o.pointerType ||
+          "mouse" != o.pointerType ||
+          0 != D.fallbackToMouseEvents
         ) {
-          var d,
-            b = a.touches,
-            e = b ? b[0] : a;
+          var a,
+            u = o.touches,
+            s = u ? u[0] : o;
           return (
-            (aP = m),
-            b
-              ? (aQ = b.length)
-              : !1 !== r.preventDefaultEvents && c.preventDefault(),
-            (aF = 0),
-            (aG = null),
-            (aH = null),
-            (aN = null),
-            (aI = 0),
-            (aJ = 0),
-            (aK = 0),
-            (aL = 1),
-            (aM = 0),
-            (aO = aq()),
-            ah(),
-            al(0, e),
-            !b || aQ === r.fingers || r.fingers === l || T()
-              ? ((aS = ay()),
-                2 == aQ &&
-                  (al(1, b[1]), (aJ = aK = at(aR[0].start, aR[1].start))),
-                (r.swipeStatus || r.pinchStatus) && (d = M(a, aP)))
-              : (d = !1),
-            !1 === d
-              ? (M(a, (aP = p)), d)
-              : (r.hold &&
-                  (aY = setTimeout(
-                    $.proxy(function () {
-                      D.trigger("hold", [a.target]),
-                        r.hold && (d = r.hold.call(D, a, a.target));
+            (xe = b),
+            u
+              ? (Se = u.length)
+              : !1 !== D.preventDefaultEvents && n.preventDefault(),
+            (he = 0),
+            (de = null),
+            (fe = null),
+            (ye = null),
+            (ge = 0),
+            (we = 0),
+            (ve = 0),
+            (Te = 1),
+            (be = 0),
+            ((c = {})[t] = ne(t)),
+            (c[i] = ne(i)),
+            (c[r] = ne(r)),
+            (c[l] = ne(l)),
+            (Ee = c),
+            Z(),
+            K(0, s),
+            !u || Se === D.fingers || D.fingers === v || C()
+              ? ((Me = le()),
+                2 == Se &&
+                  (K(1, u[1]), (we = ve = ie(Oe[0].start, Oe[1].start))),
+                (D.swipeStatus || D.pinchStatus) && (a = j(o, xe)))
+              : (a = !1),
+            !1 === a
+              ? (j(o, (xe = m)), a)
+              : (D.hold &&
+                  (Ae = setTimeout(
+                    e.proxy(function () {
+                      me.trigger("hold", [o.target]),
+                        D.hold && (a = D.hold.call(me, o, o.target));
                     }, this),
-                    r.longTapThreshold
+                    D.longTapThreshold
                   )),
-                ak(!0),
+                J(!0),
                 null)
           );
         }
       }
+      var c;
     }
-    function H(d) {
-      var c = d.originalEvent ? d.originalEvent : d;
-      if (aP !== o && aP !== p && !ai()) {
-        var f,
-          a = c.touches,
-          g = a ? a[0] : c,
-          b = am(g);
+    function L(n) {
+      var c,
+        p,
+        h,
+        d,
+        f = n.originalEvent ? n.originalEvent : n;
+      if (xe !== E && xe !== m && !B()) {
+        var T,
+          b = f.touches,
+          x = $(b ? b[0] : f);
         if (
-          ((aT = ay()),
-          a && (aQ = a.length),
-          r.hold && clearTimeout(aY),
-          (aP = n),
-          2 == aQ &&
-            (0 == aJ
-              ? (al(1, a[1]), (aJ = aK = at(aR[0].start, aR[1].start)))
-              : (am(a[1]),
-                (aK = at(aR[0].end, aR[1].end)),
-                (aN = av(aR[0].end, aR[1].end))),
-            (aL = au(aJ, aK)),
-            (aM = Math.abs(aJ - aK))),
-          aQ === r.fingers || r.fingers === l || !a || T())
+          ((De = le()),
+          b && (Se = b.length),
+          D.hold && clearTimeout(Ae),
+          (xe = y),
+          2 == Se &&
+            (0 == we
+              ? (K(1, b[1]), (we = ve = ie(Oe[0].start, Oe[1].start)))
+              : ($(b[1]),
+                (ve = ie(Oe[0].end, Oe[1].end)),
+                Oe[0].end,
+                Oe[1].end,
+                (ye = Te < 1 ? a : o)),
+            (Te = ((ve / we) * 1).toFixed(2)),
+            (be = Math.abs(we - ve))),
+          Se === D.fingers || D.fingers === v || !b || C())
         ) {
           if (
-            ((aG = ax(b.start, b.end)),
-            (aH = ax(b.last, b.end)),
-            R(d, aH),
-            (aF = aw(b.start, b.end)),
-            (aI = as()),
-            ao(aG, aF),
-            (f = M(c, aP)),
-            !r.triggerOnTouchEnd || r.triggerOnTouchLeave)
+            ((de = re(x.start, x.end)),
+            (function (e, n) {
+              if (!1 !== D.preventDefaultEvents)
+                if (D.allowPageScroll === u) e.preventDefault();
+                else {
+                  var o = D.allowPageScroll === s;
+                  switch (n) {
+                    case t:
+                      ((D.swipeLeft && o) || (!o && D.allowPageScroll != g)) &&
+                        e.preventDefault();
+                      break;
+                    case i:
+                      ((D.swipeRight && o) || (!o && D.allowPageScroll != g)) &&
+                        e.preventDefault();
+                      break;
+                    case r:
+                      ((D.swipeUp && o) || (!o && D.allowPageScroll != w)) &&
+                        e.preventDefault();
+                      break;
+                    case l:
+                      ((D.swipeDown && o) || (!o && D.allowPageScroll != w)) &&
+                        e.preventDefault();
+                  }
+                }
+            })(n, (fe = re(x.last, x.end))),
+            (h = x.start),
+            (d = x.end),
+            (he = Math.round(
+              Math.sqrt(Math.pow(d.x - h.x, 2) + Math.pow(d.y - h.y, 2))
+            )),
+            (ge = te()),
+            (function (e, n) {
+              e != u && ((n = Math.max(n, ee(e))), (Ee[e].distance = n));
+            })(de, he),
+            (T = j(f, xe)),
+            !D.triggerOnTouchEnd || D.triggerOnTouchLeave)
           ) {
-            var e = !0;
-            if (r.triggerOnTouchLeave) {
-              var h = az(this);
-              e = aA(b.end, h);
+            var S = !0;
+            if (D.triggerOnTouchLeave) {
+              var O = {
+                left: (p = (c = e((c = this))).offset()).left,
+                right: p.left + c.outerWidth(),
+                top: p.top,
+                bottom: p.top + c.outerHeight(),
+              };
+              S = (function (e, n) {
+                return (
+                  e.x > n.left && e.x < n.right && e.y > n.top && e.y < n.bottom
+                );
+              })(x.end, O);
             }
-            !r.triggerOnTouchEnd && e
-              ? (aP = L(n))
-              : r.triggerOnTouchLeave && !e && (aP = L(o)),
-              (aP != p && aP != o) || M(c, aP);
+            !D.triggerOnTouchEnd && S
+              ? (xe = U(y))
+              : D.triggerOnTouchLeave && !S && (xe = U(E)),
+              (xe != m && xe != E) || j(f, xe);
           }
-        } else M(c, (aP = p));
-        !1 === f && M(c, (aP = p));
+        } else j(f, (xe = m));
+        !1 === T && j(f, (xe = m));
       }
     }
-    function I(b) {
-      var a = b.originalEvent ? b.originalEvent : b,
-        c = a.touches;
-      if (c) {
-        if (c.length && !ai()) return ag(a), !0;
-        if (c.length && ai()) return !0;
+    function R(e) {
+      var n = e.originalEvent ? e.originalEvent : e,
+        t = n.touches;
+      if (t) {
+        if (t.length && !B())
+          return (
+            (function (e) {
+              (Pe = le()), (Le = e.touches.length + 1);
+            })(n),
+            !0
+          );
+        if (t.length && B()) return !0;
       }
       return (
-        ai() && (aQ = aV),
-        (aT = ay()),
-        (aI = as()),
-        P() || !O()
-          ? M(a, (aP = p))
-          : r.triggerOnTouchEnd || (!1 === r.triggerOnTouchEnd && aP === n)
-          ? (!1 !== r.preventDefaultEvents &&
-              !1 !== b.cancelable &&
-              b.preventDefault(),
-            M(a, (aP = o)))
-          : !r.triggerOnTouchEnd && _()
-          ? N(a, (aP = o), u)
-          : aP === n && M(a, (aP = p)),
-        ak(!1),
+        B() && (Se = Le),
+        (De = le()),
+        (ge = te()),
+        _() || !H()
+          ? j(n, (xe = m))
+          : D.triggerOnTouchEnd || (!1 === D.triggerOnTouchEnd && xe === y)
+          ? (!1 !== D.preventDefaultEvents &&
+              !1 !== e.cancelable &&
+              e.preventDefault(),
+            j(n, (xe = E)))
+          : !D.triggerOnTouchEnd && W()
+          ? N(n, (xe = E), h)
+          : xe === y && j(n, (xe = m)),
+        J(!1),
         null
       );
     }
-    function G() {
-      (aQ = 0), (aT = 0), (aS = 0), (aJ = 0), (aK = 0), (aL = 1), ah(), ak(!1);
+    function k() {
+      (Se = 0), (De = 0), (Me = 0), (we = 0), (ve = 0), (Te = 1), Z(), J(!1);
     }
-    function J(a) {
-      var b = a.originalEvent ? a.originalEvent : a;
-      r.triggerOnTouchLeave && M(b, (aP = L(o)));
+    function A(e) {
+      var n = e.originalEvent ? e.originalEvent : e;
+      D.triggerOnTouchLeave && j(n, (xe = U(E)));
     }
-    function K() {
-      D.unbind(B, F),
-        D.unbind(C, G),
-        D.unbind(aC, H),
-        D.unbind(aD, I),
-        aE && D.unbind(aE, J),
-        ak(!1);
+    function I() {
+      me.unbind(ae, P),
+        me.unbind(pe, k),
+        me.unbind(ue, L),
+        me.unbind(se, R),
+        ce && me.unbind(ce, A),
+        J(!1);
     }
-    function L(b) {
-      var a = b,
-        d = Q(),
-        c = O(),
-        e = P();
+    function U(e) {
+      var n = e,
+        t = q(),
+        i = H(),
+        r = _();
       return (
-        !d || e
-          ? (a = p)
-          : c && b == n && (!r.triggerOnTouchEnd || r.triggerOnTouchLeave)
-          ? (a = o)
-          : !c && b == o && r.triggerOnTouchLeave && (a = p),
-        a
+        !t || r
+          ? (n = m)
+          : !i || e != y || (D.triggerOnTouchEnd && !D.triggerOnTouchLeave)
+          ? !i && e == E && D.triggerOnTouchLeave && (n = m)
+          : (n = E),
+        n
       );
     }
-    function M(b, c) {
-      var a,
-        d = b.touches;
+    function j(e, n) {
+      var t,
+        i = e.touches;
       return (
-        (X() || W()) && (a = N(b, c, s)),
-        (U() || T()) && !1 !== a && (a = N(b, c, t)),
-        ae() && !1 !== a
-          ? (a = N(b, c, v))
-          : af() && !1 !== a
-          ? (a = N(b, c, w))
-          : ad() && !1 !== a && (a = N(b, c, u)),
-        c === p && G(b),
-        c === o && ((d && d.length) || G(b)),
-        a
+        (!(!F() || !X()) || X()) && (t = N(e, n, c)),
+        (!(!Q() || !C()) || C()) && !1 !== t && (t = N(e, n, p)),
+        G() && z() && !1 !== t
+          ? (t = N(e, n, d))
+          : ge > D.longTapThreshold && he < T && D.longTap && !1 !== t
+          ? (t = N(e, n, f))
+          : !((1 !== Se && x) || !(isNaN(he) || he < D.threshold) || !W()) &&
+            !1 !== t &&
+            (t = N(e, n, h)),
+        n === m && k(),
+        n === E && ((i && i.length) || k()),
+        t
       );
     }
-    function N(a, i, j) {
-      var h;
-      if (j == s) {
+    function N(n, u, s) {
+      var g;
+      if (s == c) {
         if (
-          (D.trigger("swipeStatus", [
-            i,
-            aG || null,
-            aF || 0,
-            aI || 0,
-            aQ,
-            aR,
-            aH,
+          (me.trigger("swipeStatus", [
+            u,
+            de || null,
+            he || 0,
+            ge || 0,
+            Se,
+            Oe,
+            fe,
           ]),
-          r.swipeStatus &&
+          D.swipeStatus &&
             !1 ===
-              (h = r.swipeStatus.call(
-                D,
-                a,
-                i,
-                aG || null,
-                aF || 0,
-                aI || 0,
-                aQ,
-                aR,
-                aH
+              (g = D.swipeStatus.call(
+                me,
+                n,
+                u,
+                de || null,
+                he || 0,
+                ge || 0,
+                Se,
+                Oe,
+                fe
               )))
         )
           return !1;
-        if (i == o && V()) {
+        if (u == E && F()) {
           if (
-            (clearTimeout(aX),
-            clearTimeout(aY),
-            D.trigger("swipe", [aG, aF, aI, aQ, aR, aH]),
-            r.swipe && !1 === (h = r.swipe.call(D, a, aG, aF, aI, aQ, aR, aH)))
+            (clearTimeout(ke),
+            clearTimeout(Ae),
+            me.trigger("swipe", [de, he, ge, Se, Oe, fe]),
+            D.swipe && !1 === (g = D.swipe.call(me, n, de, he, ge, Se, Oe, fe)))
           )
             return !1;
-          switch (aG) {
-            case b:
-              D.trigger("swipeLeft", [aG, aF, aI, aQ, aR, aH]),
-                r.swipeLeft &&
-                  (h = r.swipeLeft.call(D, a, aG, aF, aI, aQ, aR, aH));
+          switch (de) {
+            case t:
+              me.trigger("swipeLeft", [de, he, ge, Se, Oe, fe]),
+                D.swipeLeft &&
+                  (g = D.swipeLeft.call(me, n, de, he, ge, Se, Oe, fe));
               break;
-            case c:
-              D.trigger("swipeRight", [aG, aF, aI, aQ, aR, aH]),
-                r.swipeRight &&
-                  (h = r.swipeRight.call(D, a, aG, aF, aI, aQ, aR, aH));
+            case i:
+              me.trigger("swipeRight", [de, he, ge, Se, Oe, fe]),
+                D.swipeRight &&
+                  (g = D.swipeRight.call(me, n, de, he, ge, Se, Oe, fe));
               break;
-            case d:
-              D.trigger("swipeUp", [aG, aF, aI, aQ, aR, aH]),
-                r.swipeUp && (h = r.swipeUp.call(D, a, aG, aF, aI, aQ, aR, aH));
+            case r:
+              me.trigger("swipeUp", [de, he, ge, Se, Oe, fe]),
+                D.swipeUp &&
+                  (g = D.swipeUp.call(me, n, de, he, ge, Se, Oe, fe));
               break;
-            case e:
-              D.trigger("swipeDown", [aG, aF, aI, aQ, aR, aH]),
-                r.swipeDown &&
-                  (h = r.swipeDown.call(D, a, aG, aF, aI, aQ, aR, aH));
+            case l:
+              me.trigger("swipeDown", [de, he, ge, Se, Oe, fe]),
+                D.swipeDown &&
+                  (g = D.swipeDown.call(me, n, de, he, ge, Se, Oe, fe));
           }
         }
       }
-      if (j == t) {
+      if (s == p) {
         if (
-          (D.trigger("pinchStatus", [
-            i,
-            aN || null,
-            aM || 0,
-            aI || 0,
-            aQ,
-            aL,
-            aR,
+          (me.trigger("pinchStatus", [
+            u,
+            ye || null,
+            be || 0,
+            ge || 0,
+            Se,
+            Te,
+            Oe,
           ]),
-          r.pinchStatus &&
+          D.pinchStatus &&
             !1 ===
-              (h = r.pinchStatus.call(
-                D,
-                a,
-                i,
-                aN || null,
-                aM || 0,
-                aI || 0,
-                aQ,
-                aL,
-                aR
+              (g = D.pinchStatus.call(
+                me,
+                n,
+                u,
+                ye || null,
+                be || 0,
+                ge || 0,
+                Se,
+                Te,
+                Oe
               )))
         )
           return !1;
-        if (i == o && S())
-          switch (aN) {
-            case f:
-              D.trigger("pinchIn", [aN || null, aM || 0, aI || 0, aQ, aL, aR]),
-                r.pinchIn &&
-                  (h = r.pinchIn.call(
-                    D,
-                    a,
-                    aN || null,
-                    aM || 0,
-                    aI || 0,
-                    aQ,
-                    aL,
-                    aR
+        if (u == E && Q())
+          switch (ye) {
+            case o:
+              me.trigger("pinchIn", [ye || null, be || 0, ge || 0, Se, Te, Oe]),
+                D.pinchIn &&
+                  (g = D.pinchIn.call(
+                    me,
+                    n,
+                    ye || null,
+                    be || 0,
+                    ge || 0,
+                    Se,
+                    Te,
+                    Oe
                   ));
               break;
-            case g:
-              D.trigger("pinchOut", [aN || null, aM || 0, aI || 0, aQ, aL, aR]),
-                r.pinchOut &&
-                  (h = r.pinchOut.call(
-                    D,
-                    a,
-                    aN || null,
-                    aM || 0,
-                    aI || 0,
-                    aQ,
-                    aL,
-                    aR
+            case a:
+              me.trigger("pinchOut", [
+                ye || null,
+                be || 0,
+                ge || 0,
+                Se,
+                Te,
+                Oe,
+              ]),
+                D.pinchOut &&
+                  (g = D.pinchOut.call(
+                    me,
+                    n,
+                    ye || null,
+                    be || 0,
+                    ge || 0,
+                    Se,
+                    Te,
+                    Oe
                   ));
           }
       }
       return (
-        j == u
-          ? (i !== p && i !== o) ||
-            (clearTimeout(aX),
-            clearTimeout(aY),
-            aa() && !ac()
-              ? ((aW = ay()),
-                (aX = setTimeout(
-                  $.proxy(function () {
-                    (aW = null),
-                      D.trigger("tap", [a.target]),
-                      r.tap && (h = r.tap.call(D, a, a.target));
+        s == h
+          ? (u !== m && u !== E) ||
+            (clearTimeout(ke),
+            clearTimeout(Ae),
+            z() && !G()
+              ? ((Re = le()),
+                (ke = setTimeout(
+                  e.proxy(function () {
+                    (Re = null),
+                      me.trigger("tap", [n.target]),
+                      D.tap && (g = D.tap.call(me, n, n.target));
                   }, this),
-                  r.doubleTapThreshold
+                  D.doubleTapThreshold
                 )))
-              : ((aW = null),
-                D.trigger("tap", [a.target]),
-                r.tap && (h = r.tap.call(D, a, a.target))))
-          : j == v
-          ? (i !== p && i !== o) ||
-            (clearTimeout(aX),
-            clearTimeout(aY),
-            (aW = null),
-            D.trigger("doubletap", [a.target]),
-            r.doubleTap && (h = r.doubleTap.call(D, a, a.target)))
-          : j == w &&
-            ((i !== p && i !== o) ||
-              (clearTimeout(aX),
-              (aW = null),
-              D.trigger("longtap", [a.target]),
-              r.longTap && (h = r.longTap.call(D, a, a.target)))),
-        h
+              : ((Re = null),
+                me.trigger("tap", [n.target]),
+                D.tap && (g = D.tap.call(me, n, n.target))))
+          : s == d
+          ? (u !== m && u !== E) ||
+            (clearTimeout(ke),
+            clearTimeout(Ae),
+            (Re = null),
+            me.trigger("doubletap", [n.target]),
+            D.doubleTap && (g = D.doubleTap.call(me, n, n.target)))
+          : s == f &&
+            ((u !== m && u !== E) ||
+              (clearTimeout(ke),
+              (Re = null),
+              me.trigger("longtap", [n.target]),
+              D.longTap && (g = D.longTap.call(me, n, n.target)))),
+        g
       );
     }
-    function O() {
-      var a = !0;
-      return null !== r.threshold && (a = aF >= r.threshold), a;
-    }
-    function P() {
-      var a = !1;
-      return (
-        null !== r.cancelThreshold &&
-          null !== aG &&
-          (a = ap(aG) - aF >= r.cancelThreshold),
-        a
-      );
-    }
-    function Q() {
-      return !r.maxTimeThreshold || !(aI >= r.maxTimeThreshold);
-    }
-    function R(f, g) {
-      if (!1 !== r.preventDefaultEvents) {
-        if (r.allowPageScroll === h) f.preventDefault();
-        else {
-          var a = r.allowPageScroll === i;
-          switch (g) {
-            case b:
-              ((r.swipeLeft && a) || (!a && r.allowPageScroll != j)) &&
-                f.preventDefault();
-              break;
-            case c:
-              ((r.swipeRight && a) || (!a && r.allowPageScroll != j)) &&
-                f.preventDefault();
-              break;
-            case d:
-              ((r.swipeUp && a) || (!a && r.allowPageScroll != k)) &&
-                f.preventDefault();
-              break;
-            case e:
-              ((r.swipeDown && a) || (!a && r.allowPageScroll != k)) &&
-                f.preventDefault();
-          }
-        }
-      }
-    }
-    function S() {
-      var a = Y(),
-        b = Z(),
-        c = null === r.pinchThreshold || aM >= r.pinchThreshold;
-      return a && b && c;
-    }
-    function T() {
-      return !!(r.pinchStatus || r.pinchIn || r.pinchOut);
-    }
-    function U() {
-      return !(!S() || !T());
-    }
-    function V() {
-      var a = Q(),
-        b = O(),
-        c = Y(),
-        d = Z();
-      return !P() && d && c && b && a;
-    }
-    function W() {
-      return !!(
-        r.swipe ||
-        r.swipeStatus ||
-        r.swipeLeft ||
-        r.swipeRight ||
-        r.swipeUp ||
-        r.swipeDown
-      );
-    }
-    function X() {
-      return !(!V() || !W());
-    }
-    function Y() {
-      return aQ === r.fingers || r.fingers === l || !a;
-    }
-    function Z() {
-      return 0 !== aR[0].end.x;
+    function H() {
+      var e = !0;
+      return null !== D.threshold && (e = he >= D.threshold), e;
     }
     function _() {
-      return !!r.tap;
+      var e = !1;
+      return (
+        null !== D.cancelThreshold &&
+          null !== de &&
+          (e = ee(de) - he >= D.cancelThreshold),
+        e
+      );
     }
-    function aa() {
-      return !!r.doubleTap;
+    function q() {
+      return !(D.maxTimeThreshold && ge >= D.maxTimeThreshold);
     }
-    function ab() {
-      if (null == aW) return !1;
-      var a = ay();
-      return aa() && a - aW <= r.doubleTapThreshold;
+    function Q() {
+      var e = Y(),
+        n = V(),
+        t = null === D.pinchThreshold || be >= D.pinchThreshold;
+      return e && n && t;
     }
-    function ac() {
-      return ab();
+    function C() {
+      return !!(D.pinchStatus || D.pinchIn || D.pinchOut);
     }
-    function ad() {
-      return !(!((1 === aQ || !a) && (isNaN(aF) || aF < r.threshold)) || !_());
+    function F() {
+      var e = q(),
+        n = H(),
+        t = Y(),
+        i = V();
+      return !_() && i && t && n && e;
     }
-    function ae() {
-      return !(!ab() || !aa());
+    function X() {
+      return !!(
+        D.swipe ||
+        D.swipeStatus ||
+        D.swipeLeft ||
+        D.swipeRight ||
+        D.swipeUp ||
+        D.swipeDown
+      );
     }
-    function af() {
-      return !(!(aI > r.longTapThreshold && aF < x) || !r.longTap);
+    function Y() {
+      return Se === D.fingers || D.fingers === v || !x;
     }
-    function ag(a) {
-      (aU = ay()), (aV = a.touches.length + 1);
+    function V() {
+      return 0 !== Oe[0].end.x;
     }
-    function ah() {
-      (aU = 0), (aV = 0);
+    function W() {
+      return !!D.tap;
     }
-    function ai() {
-      var a = !1;
-      return aU && ay() - aU <= r.fingerReleaseThreshold && (a = !0), a;
+    function z() {
+      return !!D.doubleTap;
     }
-    function aj() {
-      return !(!0 !== D.data(A + "_intouch"));
+    function G() {
+      if (null == Re) return !1;
+      var e = le();
+      return z() && e - Re <= D.doubleTapThreshold;
     }
-    function ak(a) {
-      D &&
-        (!0 === a
-          ? (D.bind(aC, H), D.bind(aD, I), aE && D.bind(aE, J))
-          : (D.unbind(aC, H, !1),
-            D.unbind(aD, I, !1),
-            aE && D.unbind(aE, J, !1)),
-        D.data(A + "_intouch", !0 === a));
+    function Z() {
+      (Pe = 0), (Le = 0);
     }
-    function al(c, b) {
-      var a = {
+    function B() {
+      var e = !1;
+      Pe && le() - Pe <= D.fingerReleaseThreshold && (e = !0);
+      return e;
+    }
+    function J(e) {
+      me &&
+        (!0 === e
+          ? (me.bind(ue, L), me.bind(se, R), ce && me.bind(ce, A))
+          : (me.unbind(ue, L, !1),
+            me.unbind(se, R, !1),
+            ce && me.unbind(ce, A, !1)),
+        me.data(M + "_intouch", !0 === e));
+    }
+    function K(e, n) {
+      var t = {
         start: { x: 0, y: 0 },
         last: { x: 0, y: 0 },
         end: { x: 0, y: 0 },
       };
       return (
-        (a.start.x = a.last.x = a.end.x = b.pageX || b.clientX),
-        (a.start.y = a.last.y = a.end.y = b.pageY || b.clientY),
-        (aR[c] = a),
-        a
+        (t.start.x = t.last.x = t.end.x = n.pageX || n.clientX),
+        (t.start.y = t.last.y = t.end.y = n.pageY || n.clientY),
+        (Oe[e] = t),
+        t
       );
     }
-    function am(b) {
-      var c = void 0 !== b.identifier ? b.identifier : 0,
-        a = an(c);
+    function $(e) {
+      var n = void 0 !== e.identifier ? e.identifier : 0,
+        t = (function (e) {
+          return Oe[e] || null;
+        })(n);
       return (
-        null === a && (a = al(c, b)),
-        (a.last.x = a.end.x),
-        (a.last.y = a.end.y),
-        (a.end.x = b.pageX || b.clientX),
-        (a.end.y = b.pageY || b.clientY),
-        a
+        null === t && (t = K(n, e)),
+        (t.last.x = t.end.x),
+        (t.last.y = t.end.y),
+        (t.end.x = e.pageX || e.clientX),
+        (t.end.y = e.pageY || e.clientY),
+        t
       );
     }
-    function an(a) {
-      return aR[a] || null;
+    function ee(e) {
+      if (Ee[e]) return Ee[e].distance;
     }
-    function ao(a, b) {
-      a != h && ((b = Math.max(b, ap(a))), (aO[a].distance = b));
+    function ne(e) {
+      return { direction: e, distance: 0 };
     }
-    function ap(a) {
-      if (aO[a]) return aO[a].distance;
+    function te() {
+      return De - Me;
     }
-    function aq() {
-      var a = {};
-      return (a[b] = ar(b)), (a[c] = ar(c)), (a[d] = ar(d)), (a[e] = ar(e)), a;
+    function ie(e, n) {
+      var t = Math.abs(e.x - n.x),
+        i = Math.abs(e.y - n.y);
+      return Math.round(Math.sqrt(t * t + i * i));
     }
-    function ar(a) {
-      return { direction: a, distance: 0 };
+    function re(e, n) {
+      if (((a = n), (o = e).x == a.x && o.y == a.y)) return u;
+      var o,
+        a,
+        s = (function (e, n) {
+          var t = e.x - n.x,
+            i = n.y - e.y,
+            r = Math.atan2(i, t),
+            l = Math.round((180 * r) / Math.PI);
+          return l < 0 && (l = 360 - Math.abs(l)), l;
+        })(e, n);
+      return s <= 45 && s >= 0
+        ? t
+        : s <= 360 && s >= 315
+        ? t
+        : s >= 135 && s <= 225
+        ? i
+        : s > 45 && s < 135
+        ? l
+        : r;
     }
-    function as() {
-      return aT - aS;
-    }
-    function at(a, b) {
-      var c = Math.abs(a.x - b.x),
-        d = Math.abs(a.y - b.y);
-      return Math.round(Math.sqrt(c * c + d * d));
-    }
-    function au(a, b) {
-      return ((b / a) * 1).toFixed(2);
-    }
-    function av() {
-      return aL < 1 ? g : f;
-    }
-    function aw(a, b) {
-      return Math.round(
-        Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2))
-      );
-    }
-    function ax(j, k) {
-      if (aB(j, k)) return h;
-      var g,
-        i,
-        l,
-        m,
-        n,
-        f,
-        a =
-          ((g = j),
-          (i = k),
-          (l = g.x - i.x),
-          (m = i.y - g.y),
-          (n = Math.atan2(m, l)),
-          (f = Math.round((180 * n) / Math.PI)),
-          f < 0 && (f = 360 - Math.abs(f)),
-          f);
-      return a <= 45 && a >= 0
-        ? b
-        : a <= 360 && a >= 315
-        ? b
-        : a >= 135 && a <= 225
-        ? c
-        : a > 45 && a < 135
-        ? e
-        : d;
-    }
-    function ay() {
+    function le() {
       return new Date().getTime();
     }
-    function az(a) {
-      var b = (a = $(a)).offset();
-      return {
-        left: b.left,
-        right: b.left + a.outerWidth(),
-        top: b.top,
-        bottom: b.top + a.outerHeight(),
-      };
-    }
-    function aA(a, b) {
-      return a.x > b.left && a.x < b.right && a.y > b.top && a.y < b.bottom;
-    }
-    function aB(a, b) {
-      return a.x == b.x && a.y == b.y;
-    }
-    var r = $.extend({}, r),
-      q = a || z || !r.fallbackToMouseEvents,
-      B = q
-        ? z
-          ? y
+    D = e.extend({}, D);
+    var oe = x || O || !D.fallbackToMouseEvents,
+      ae = oe
+        ? O
+          ? S
             ? "MSPointerDown"
             : "pointerdown"
           : "touchstart"
         : "mousedown",
-      aC = q
-        ? z
-          ? y
+      ue = oe
+        ? O
+          ? S
             ? "MSPointerMove"
             : "pointermove"
           : "touchmove"
         : "mousemove",
-      aD = q ? (z ? (y ? "MSPointerUp" : "pointerup") : "touchend") : "mouseup",
-      aE = q ? (z ? "mouseleave" : null) : "mouseleave",
-      C = z ? (y ? "MSPointerCancel" : "pointercancel") : "touchcancel",
-      aF = 0,
-      aG = null,
-      aH = null,
-      aI = 0,
-      aJ = 0,
-      aK = 0,
-      aL = 1,
-      aM = 0,
-      aN = 0,
-      aO = null,
-      D = $(E),
-      aP = "start",
-      aQ = 0,
-      aR = {},
-      aS = 0,
-      aT = 0,
-      aU = 0,
-      aV = 0,
-      aW = 0,
-      aX = null,
-      aY = null;
+      se = oe
+        ? O
+          ? S
+            ? "MSPointerUp"
+            : "pointerup"
+          : "touchend"
+        : "mouseup",
+      ce = oe ? (O ? "mouseleave" : null) : "mouseleave",
+      pe = O ? (S ? "MSPointerCancel" : "pointercancel") : "touchcancel",
+      he = 0,
+      de = null,
+      fe = null,
+      ge = 0,
+      we = 0,
+      ve = 0,
+      Te = 1,
+      be = 0,
+      ye = 0,
+      Ee = null,
+      me = e(n),
+      xe = "start",
+      Se = 0,
+      Oe = {},
+      Me = 0,
+      De = 0,
+      Pe = 0,
+      Le = 0,
+      Re = 0,
+      ke = null,
+      Ae = null;
     try {
-      D.bind(B, F), D.bind(C, G);
-    } catch (aZ) {
-      $.error("events not supported " + B + "," + C + " on jQuery.swipe");
+      me.bind(ae, P), me.bind(pe, k);
+    } catch (n) {
+      e.error("events not supported " + ae + "," + pe + " on jQuery.swipe");
     }
     (this.enable = function () {
-      return this.disable(), D.bind(B, F), D.bind(C, G), D;
+      return this.disable(), me.bind(ae, P), me.bind(pe, k), me;
     }),
       (this.disable = function () {
-        return K(), D;
+        return I(), me;
       }),
       (this.destroy = function () {
-        K(), D.data(A, null), (D = null);
+        I(), me.data(M, null), (me = null);
       }),
-      (this.option = function (a, b) {
-        if ("object" == typeof a) r = $.extend(r, a);
-        else if (void 0 !== r[a]) {
-          if (void 0 === b) return r[a];
-          r[a] = b;
+      (this.option = function (n, t) {
+        if ("object" == typeof n) D = e.extend(D, n);
+        else if (void 0 !== D[n]) {
+          if (void 0 === t) return D[n];
+          D[n] = t;
         } else {
-          if (!a) return r;
-          $.error("Option " + a + " does not exist on jQuery.swipe.options");
+          if (!n) return D;
+          e.error("Option " + n + " does not exist on jQuery.swipe.options");
         }
         return null;
       });
   }
-  var b = "left",
-    c = "right",
-    d = "up",
-    e = "down",
-    f = "in",
-    g = "out",
-    h = "none",
-    i = "auto",
-    s = "swipe",
-    t = "pinch",
-    u = "tap",
-    v = "doubletap",
-    w = "longtap",
-    j = "horizontal",
-    k = "vertical",
-    l = "all",
-    x = 10,
-    m = "start",
-    n = "move",
-    o = "end",
-    p = "cancel",
-    a = "ontouchstart" in window,
-    y =
+  var t = "left",
+    i = "right",
+    r = "up",
+    l = "down",
+    o = "in",
+    a = "out",
+    u = "none",
+    s = "auto",
+    c = "swipe",
+    p = "pinch",
+    h = "tap",
+    d = "doubletap",
+    f = "longtap",
+    g = "horizontal",
+    w = "vertical",
+    v = "all",
+    T = 10,
+    b = "start",
+    y = "move",
+    E = "end",
+    m = "cancel",
+    x = "ontouchstart" in window,
+    S =
       window.navigator.msPointerEnabled &&
       !window.navigator.pointerEnabled &&
-      !a,
-    z =
+      !x,
+    O =
       (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) &&
-      !a,
-    A = "TouchSwipe";
-  ($.fn.swipe = function (b) {
-    var c = $(this),
-      a = c.data(A);
-    if (a && "string" == typeof b) {
-      if (a[b]) return a[b].apply(a, Array.prototype.slice.call(arguments, 1));
-      $.error("Method " + b + " does not exist on jQuery.swipe");
-    } else if (a && "object" == typeof b) a.option.apply(a, arguments);
-    else if (!(a || ("object" != typeof b && b)))
-      return q.apply(this, arguments);
-    return c;
+      !x,
+    M = "TouchSwipe";
+  (e.fn.swipe = function (t) {
+    var i = e(this),
+      r = i.data(M);
+    if (r && "string" == typeof t) {
+      if (r[t]) return r[t].apply(r, Array.prototype.slice.call(arguments, 1));
+      e.error("Method " + t + " does not exist on jQuery.swipe");
+    } else if (r && "object" == typeof t) r.option.apply(r, arguments);
+    else if (!(r || ("object" != typeof t && t)))
+      return function (t) {
+        return (
+          !t ||
+            void 0 !== t.allowPageScroll ||
+            (void 0 === t.swipe && void 0 === t.swipeStatus) ||
+            (t.allowPageScroll = u),
+          void 0 !== t.click && void 0 === t.tap && (t.tap = t.click),
+          t || (t = {}),
+          (t = e.extend({}, e.fn.swipe.defaults, t)),
+          this.each(function () {
+            var i = e(this),
+              r = i.data(M);
+            r || ((r = new n(this, t)), i.data(M, r));
+          })
+        );
+      }.apply(this, arguments);
+    return i;
   }),
-    ($.fn.swipe.version = "1.6.18"),
-    ($.fn.swipe.defaults = {
+    (e.fn.swipe.version = "1.6.18"),
+    (e.fn.swipe.defaults = {
       fingers: 1,
       threshold: 75,
       cancelThreshold: null,
@@ -719,27 +692,27 @@
       excludedElements: ".noSwipe",
       preventDefaultEvents: !0,
     }),
-    ($.fn.swipe.phases = {
-      PHASE_START: m,
-      PHASE_MOVE: n,
-      PHASE_END: o,
-      PHASE_CANCEL: p,
+    (e.fn.swipe.phases = {
+      PHASE_START: b,
+      PHASE_MOVE: y,
+      PHASE_END: E,
+      PHASE_CANCEL: m,
     }),
-    ($.fn.swipe.directions = {
-      LEFT: b,
-      RIGHT: c,
-      UP: d,
-      DOWN: e,
-      IN: f,
-      OUT: g,
+    (e.fn.swipe.directions = {
+      LEFT: t,
+      RIGHT: i,
+      UP: r,
+      DOWN: l,
+      IN: o,
+      OUT: a,
     }),
-    ($.fn.swipe.pageScroll = { NONE: h, HORIZONTAL: j, VERTICAL: k, AUTO: i }),
-    ($.fn.swipe.fingers = {
+    (e.fn.swipe.pageScroll = { NONE: u, HORIZONTAL: g, VERTICAL: w, AUTO: s }),
+    (e.fn.swipe.fingers = {
       ONE: 1,
       TWO: 2,
       THREE: 3,
       FOUR: 4,
       FIVE: 5,
-      ALL: l,
+      ALL: v,
     });
 });

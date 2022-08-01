@@ -1,76 +1,72 @@
 "use strict";
-!(function (b, a) {
-  "object" == typeof exports
-    ? (module.exports = a())
-    : "function" == typeof define && define.amd
-    ? define(["jquery", "googlemaps!"], a)
-    : (b.GMaps = a());
+!(function (a, b) {
+  "object" === typeof exports
+    ? (module.exports = b())
+    : "function" === typeof define && define.amd
+    ? define(["jquery", "googlemaps!"], b)
+    : (a.GMaps = b());
 })(this, function () {
-  /*!
-   * GMaps.js v0.4.25
-   * http://hpneo.github.com/gmaps/
-   *
-   * Copyright 2017, Gustavo Leon
-   * Released under the MIT License.
-   */ var d,
-    e,
-    b,
-    c,
-    f = function (a, b) {
+  var a = function (a, b) {
       var c;
       if (a === b) return a;
       for (c in b) void 0 !== b[c] && (a[c] = b[c]);
       return a;
     },
-    g = function (a, d) {
-      var b,
-        e = Array.prototype.slice.call(arguments, 2),
-        c = [],
-        f = a.length;
+    c = function (a, b) {
+      var f,
+        c = Array.prototype.slice.call(arguments, 2),
+        d = [],
+        e = a.length;
       if (Array.prototype.map && a.map === Array.prototype.map)
-        c = Array.prototype.map.call(a, function (b) {
-          var a = e.slice(0);
-          return a.splice(0, 0, b), d.apply(this, a);
+        d = Array.prototype.map.call(a, function (a) {
+          var d = c.slice(0);
+          return d.splice(0, 0, a), b.apply(this, d);
         });
       else
-        for (b = 0; b < f; b++)
-          (callback_params = e).splice(0, 0, a[b]),
-            c.push(d.apply(this, callback_params));
-      return c;
+        for (f = 0; f < e; f++)
+          (callback_params = c),
+            callback_params.splice(0, 0, a[f]),
+            d.push(b.apply(this, callback_params));
+      return d;
     },
-    h = function (c) {
-      var a,
+    d = function (a) {
+      var c,
         b = [];
-      for (a = 0; a < c.length; a++) b = b.concat(c[a]);
+      for (c = 0; c < a.length; c++) b = b.concat(a[c]);
       return b;
     },
-    i = function (a, d) {
-      var b = a[0],
-        c = a[1];
-      return d && ((b = a[1]), (c = a[0])), new google.maps.LatLng(b, c);
+    f = function (a, b) {
+      var c = a[0],
+        d = a[1];
+      return b && ((c = a[1]), (d = a[0])), new google.maps.LatLng(c, d);
     },
-    j = function (b, c) {
-      var a;
-      for (a = 0; a < b.length; a++)
-        b[a] instanceof google.maps.LatLng ||
-          (b[a].length > 0 && "object" == typeof b[a][0]
-            ? (b[a] = j(b[a], c))
-            : (b[a] = i(b[a], c)));
-      return b;
+    g = function (a, b) {
+      var c;
+      for (c = 0; c < a.length; c++)
+        a[c] instanceof google.maps.LatLng ||
+          (a[c] =
+            a[c].length > 0 && "object" === typeof a[c][0]
+              ? g(a[c], b)
+              : f(a[c], b));
+      return a;
     },
-    k = function (c, a) {
-      var b = c.replace(".", "");
-      return "jQuery" in this && a
-        ? $("." + b, a)[0]
-        : document.getElementsByClassName(b)[0];
+    h = function (a, b) {
+      var c,
+        d = a.replace(".", "");
+      return (c =
+        "jQuery" in this && b
+          ? $("." + d, b)[0]
+          : document.getElementsByClassName(d)[0]);
     },
-    l = function (a, b) {
-      var a = a.replace("#", "");
-      return "jQuery" in window && b
-        ? $("#" + a, b)[0]
-        : document.getElementById(a);
+    i = function (a, b) {
+      var c,
+        a = a.replace("#", "");
+      return (c =
+        "jQuery" in window && b
+          ? $("#" + a, b)[0]
+          : document.getElementById(a));
     },
-    m = function (a) {
+    j = function (a) {
       var b = 0,
         c = 0;
       if (a.getBoundingClientRect) {
@@ -84,365 +80,366 @@
         while ((a = a.offsetParent));
       return [b, c];
     },
-    a =
-      ((b = document),
-      (c = function (a) {
-        if (!("object" == typeof window.google && window.google.maps))
-          return (
-            "object" == typeof window.console &&
-              window.console.error &&
-              console.error(
-                "Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js."
-              ),
-            function () {}
-          );
-        if (!this) return new c(a);
-        (a.zoom = a.zoom || 15), (a.mapType = a.mapType || "roadmap");
-        var d,
-          g = function (a, b) {
-            return void 0 === a ? b : a;
-          },
-          x = this,
-          i = [
-            "bounds_changed",
-            "center_changed",
-            "click",
-            "dblclick",
-            "drag",
-            "dragend",
-            "dragstart",
-            "idle",
-            "maptypeid_changed",
-            "projection_changed",
-            "resize",
-            "tilesloaded",
-            "zoom_changed",
-          ],
-          j = ["mousemove", "mouseout", "mouseover"],
-          s = [
-            "el",
-            "lat",
-            "lng",
-            "mapType",
-            "width",
-            "height",
-            "markerClusterer",
-            "enableNewStyle",
-          ],
-          n = a.el || a.div,
-          t = a.markerClusterer,
-          y = google.maps.MapTypeId[a.mapType.toUpperCase()],
-          z = new google.maps.LatLng(a.lat, a.lng),
-          A = g(a.zoomControl, !0),
-          u = a.zoomControlOpt || { style: "DEFAULT", position: "TOP_LEFT" },
-          B = u.style || "DEFAULT",
-          C = u.position || "TOP_LEFT",
-          D = g(a.panControl, !0),
-          E = g(a.mapTypeControl, !0),
-          F = g(a.scaleControl, !0),
-          G = g(a.streetViewControl, !0),
-          v = g(v, !0),
-          o = {},
-          q = { zoom: this.zoom, center: z, mapTypeId: y },
-          H = {
-            panControl: D,
-            zoomControl: A,
-            zoomControlOptions: {
-              style: google.maps.ZoomControlStyle[B],
-              position: google.maps.ControlPosition[C],
-            },
-            mapTypeControl: E,
-            scaleControl: F,
-            streetViewControl: G,
-            overviewMapControl: v,
-          };
-        if (
-          ("string" == typeof a.el || "string" == typeof a.div
-            ? n.indexOf("#") > -1
-              ? (this.el = l(n, a.context))
-              : (this.el = k.apply(this, [n, a.context]))
-            : (this.el = n),
-          void 0 === this.el || null === this.el)
-        )
-          throw "No element defined.";
-        for (
-          d = 0,
-            window.context_menu = window.context_menu || {},
-            window.context_menu[x.el.id] = {},
-            this.controls = [],
-            this.overlays = [],
-            this.layers = [],
-            this.singleLayers = {},
-            this.markers = [],
-            this.polylines = [],
-            this.routes = [],
-            this.polygons = [],
-            this.infoWindow = null,
-            this.overlay_el = null,
-            this.zoom = a.zoom,
-            this.registered_events = {},
-            this.el.style.width =
-              a.width || this.el.scrollWidth || this.el.offsetWidth,
-            this.el.style.height =
-              a.height || this.el.scrollHeight || this.el.offsetHeight,
-            google.maps.visualRefresh = a.enableNewStyle;
-          d < s.length;
-          d++
-        )
-          delete a[s[d]];
-        for (
-          !0 != a.disableDefaultUI && (q = f(q, H)), o = f(q, a), d = 0;
-          d < i.length;
-          d++
-        )
-          delete o[i[d]];
-        for (d = 0; d < j.length; d++) delete o[j[d]];
-        (this.map = new google.maps.Map(this.el, o)),
-          t && (this.markerClusterer = t.apply(this, [this.map]));
-        var I = function (d, e) {
-          var f = "",
-            c = window.context_menu[x.el.id][d];
-          for (var a in c)
-            if (c.hasOwnProperty(a)) {
-              var j = c[a];
-              f +=
-                '<li><a id="' +
-                d +
-                "_" +
-                a +
-                '" href="#">' +
-                j.title +
-                "</a></li>";
-            }
-          if (l("gmaps_context_menu")) {
-            var b = l("gmaps_context_menu");
-            b.innerHTML = f;
-            var a,
-              g = b.getElementsByTagName("a"),
-              k = g.length;
-            for (a = 0; a < k; a++) {
-              var h = g[a],
-                n = function (a) {
-                  a.preventDefault(),
-                    c[this.id.replace(d + "_", "")].action.apply(x, [e]),
-                    x.hideContextMenu();
-                };
-              google.maps.event.clearListeners(h, "click"),
-                google.maps.event.addDomListenerOnce(h, "click", n, !1);
-            }
-            var i = m.apply(this, [x.el]),
-              o = i[0] + e.pixel.x - 15,
-              p = i[1] + e.pixel.y - 15;
-            (b.style.left = o + "px"), (b.style.top = p + "px");
-          }
-        };
-        (this.buildContextMenu = function (a, b) {
-          if ("marker" === a) {
-            b.pixel = {};
-            var c = new google.maps.OverlayView();
-            c.setMap(x.map),
-              (c.draw = function () {
-                var d = c.getProjection(),
-                  e = b.marker.getPosition();
-                (b.pixel = d.fromLatLngToContainerPixel(e)), I(a, b);
-              });
-          } else I(a, b);
-          var d = l("gmaps_context_menu");
-          setTimeout(function () {
-            d.style.display = "block";
-          }, 0);
-        }),
-          (this.setContextMenu = function (c) {
-            window.context_menu[x.el.id][c.control] = {};
-            var d,
-              a = b.createElement("ul");
-            for (d in c.options)
-              if (c.options.hasOwnProperty(d)) {
-                var e = c.options[d];
-                window.context_menu[x.el.id][c.control][e.name] = {
-                  title: e.title,
-                  action: e.action,
-                };
-              }
-            (a.id = "gmaps_context_menu"),
-              (a.style.display = "none"),
-              (a.style.position = "absolute"),
-              (a.style.minWidth = "100px"),
-              (a.style.background = "white"),
-              (a.style.listStyle = "none"),
-              (a.style.padding = "8px"),
-              (a.style.boxShadow = "2px 2px 6px #ccc"),
-              l("gmaps_context_menu") || b.body.appendChild(a);
-            var f = l("gmaps_context_menu");
-            google.maps.event.addDomListener(
-              f,
-              "mouseout",
-              function (a) {
-                (a.relatedTarget && this.contains(a.relatedTarget)) ||
-                  window.setTimeout(function () {
-                    f.style.display = "none";
-                  }, 400);
-              },
-              !1
+    k = (function () {
+      var c = document,
+        d = function (b) {
+          if ("object" !== typeof window.google || !window.google.maps)
+            return (
+              "object" === typeof window.console &&
+                window.console.error &&
+                console.error(
+                  "Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js."
+                ),
+              function () {}
             );
-          }),
-          (this.hideContextMenu = function () {
-            var a = l("gmaps_context_menu");
-            a && (a.style.display = "none");
-          });
-        var w = function (b, c) {
-          google.maps.event.addListener(b, c, function (b) {
-            void 0 == b && (b = this),
-              a[c].apply(this, [b]),
-              x.hideContextMenu();
-          });
-        };
-        google.maps.event.addListener(
-          this.map,
-          "zoom_changed",
-          this.hideContextMenu
-        );
-        for (var e = 0; e < i.length; e++) {
-          var h = i[e];
-          h in a && w(this.map, h);
-        }
-        for (var e = 0; e < j.length; e++) {
-          var h = j[e];
-          h in a && w(this.map, h);
-        }
-        google.maps.event.addListener(this.map, "rightclick", function (b) {
-          a.rightclick && a.rightclick.apply(this, [b]),
-            void 0 != window.context_menu[x.el.id].map &&
-              x.buildContextMenu("map", b);
-        }),
-          (this.refresh = function () {
-            google.maps.event.trigger(this.map, "resize");
-          }),
-          (this.fitZoom = function () {
-            var a,
-              b = [],
-              c = this.markers.length;
-            for (a = 0; a < c; a++)
-              "boolean" == typeof this.markers[a].visible &&
-                this.markers[a].visible &&
-                b.push(this.markers[a].getPosition());
-            this.fitLatLngBounds(b);
-          }),
-          (this.fitLatLngBounds = function (b) {
-            var a,
-              d = b.length,
-              c = new google.maps.LatLngBounds();
-            for (a = 0; a < d; a++) c.extend(b[a]);
-            this.map.fitBounds(c);
-          }),
-          (this.setCenter = function (b, c, a) {
-            this.map.panTo(new google.maps.LatLng(b, c)), a && a();
-          }),
-          (this.getElement = function () {
-            return this.el;
-          }),
-          (this.zoomIn = function (a) {
-            (a = a || 1),
-              (this.zoom = this.map.getZoom() + a),
-              this.map.setZoom(this.zoom);
-          }),
-          (this.zoomOut = function (a) {
-            (a = a || 1),
-              (this.zoom = this.map.getZoom() - a),
-              this.map.setZoom(this.zoom);
-          });
-        var p,
-          r = [];
-        for (p in this.map)
-          "function" != typeof this.map[p] || this[p] || r.push(p);
-        for (d = 0; d < r.length; d++)
-          !(function (a, c, b) {
-            a[b] = function () {
-              return c[b].apply(c, arguments);
+          if (!this) return new d(b);
+          (b.zoom = b.zoom || 15), (b.mapType = b.mapType || "roadmap");
+          var g,
+            e = function (a, b) {
+              return void 0 === a ? b : a;
+            },
+            f = this,
+            k = [
+              "bounds_changed",
+              "center_changed",
+              "click",
+              "dblclick",
+              "drag",
+              "dragend",
+              "dragstart",
+              "idle",
+              "maptypeid_changed",
+              "projection_changed",
+              "resize",
+              "tilesloaded",
+              "zoom_changed",
+            ],
+            l = ["mousemove", "mouseout", "mouseover"],
+            m = [
+              "el",
+              "lat",
+              "lng",
+              "mapType",
+              "width",
+              "height",
+              "markerClusterer",
+              "enableNewStyle",
+            ],
+            n = b.el || b.div,
+            o = b.markerClusterer,
+            p = google.maps.MapTypeId[b.mapType.toUpperCase()],
+            q = new google.maps.LatLng(b.lat, b.lng),
+            r = e(b.zoomControl, !0),
+            s = b.zoomControlOpt || { style: "DEFAULT", position: "TOP_LEFT" },
+            t = s.style || "DEFAULT",
+            u = s.position || "TOP_LEFT",
+            v = e(b.panControl, !0),
+            w = e(b.mapTypeControl, !0),
+            x = e(b.scaleControl, !0),
+            y = e(b.streetViewControl, !0),
+            z = e(z, !0),
+            A = {},
+            B = { zoom: this.zoom, center: q, mapTypeId: p },
+            C = {
+              panControl: v,
+              zoomControl: r,
+              zoomControlOptions: {
+                style: google.maps.ZoomControlStyle[t],
+                position: google.maps.ControlPosition[u],
+              },
+              mapTypeControl: w,
+              scaleControl: x,
+              streetViewControl: y,
+              overviewMapControl: z,
             };
-          })(this, this.map, r[d]);
-      }));
-  return (
-    (a.prototype.createControl = function (a) {
-      var b = document.createElement("div");
-      for (var c in ((b.style.cursor = "pointer"),
-      !0 !== a.disableDefaultStyles &&
+          if (
+            ((this.el =
+              "string" === typeof b.el || "string" === typeof b.div
+                ? n.indexOf("#") > -1
+                  ? i(n, b.context)
+                  : h.apply(this, [n, b.context])
+                : n),
+            "undefined" === typeof this.el || null === this.el)
+          )
+            throw "No element defined.";
+          for (
+            window.context_menu = window.context_menu || {},
+              window.context_menu[f.el.id] = {},
+              this.controls = [],
+              this.overlays = [],
+              this.layers = [],
+              this.singleLayers = {},
+              this.markers = [],
+              this.polylines = [],
+              this.routes = [],
+              this.polygons = [],
+              this.infoWindow = null,
+              this.overlay_el = null,
+              this.zoom = b.zoom,
+              this.registered_events = {},
+              this.el.style.width =
+                b.width || this.el.scrollWidth || this.el.offsetWidth,
+              this.el.style.height =
+                b.height || this.el.scrollHeight || this.el.offsetHeight,
+              google.maps.visualRefresh = b.enableNewStyle,
+              g = 0;
+            g < m.length;
+            g++
+          )
+            delete b[m[g]];
+          for (
+            1 != b.disableDefaultUI && (B = a(B, C)), A = a(B, b), g = 0;
+            g < k.length;
+            g++
+          )
+            delete A[k[g]];
+          for (g = 0; g < l.length; g++) delete A[l[g]];
+          (this.map = new google.maps.Map(this.el, A)),
+            o && (this.markerClusterer = o.apply(this, [this.map]));
+          var D = function (a, b) {
+            var c = "",
+              d = window.context_menu[f.el.id][a];
+            for (var e in d)
+              if (d.hasOwnProperty(e)) {
+                var g = d[e];
+                c +=
+                  '<li><a id="' +
+                  a +
+                  "_" +
+                  e +
+                  '" href="#">' +
+                  g.title +
+                  "</a></li>";
+              }
+            if (i("gmaps_context_menu")) {
+              var h = i("gmaps_context_menu");
+              h.innerHTML = c;
+              var e,
+                k = h.getElementsByTagName("a"),
+                l = k.length;
+              for (e = 0; e < l; e++) {
+                var m = k[e],
+                  n = function (c) {
+                    c.preventDefault(),
+                      d[this.id.replace(a + "_", "")].action.apply(f, [b]),
+                      f.hideContextMenu();
+                  };
+                google.maps.event.clearListeners(m, "click"),
+                  google.maps.event.addDomListenerOnce(m, "click", n, !1);
+              }
+              var o = j.apply(this, [f.el]),
+                p = o[0] + b.pixel.x - 15,
+                q = o[1] + b.pixel.y - 15;
+              (h.style.left = p + "px"), (h.style.top = q + "px");
+            }
+          };
+          (this.buildContextMenu = function (a, b) {
+            if ("marker" === a) {
+              b.pixel = {};
+              var c = new google.maps.OverlayView();
+              c.setMap(f.map),
+                (c.draw = function () {
+                  var d = c.getProjection(),
+                    e = b.marker.getPosition();
+                  (b.pixel = d.fromLatLngToContainerPixel(e)), D(a, b);
+                });
+            } else D(a, b);
+            var d = i("gmaps_context_menu");
+            setTimeout(function () {
+              d.style.display = "block";
+            }, 0);
+          }),
+            (this.setContextMenu = function (a) {
+              window.context_menu[f.el.id][a.control] = {};
+              var b,
+                d = c.createElement("ul");
+              for (b in a.options)
+                if (a.options.hasOwnProperty(b)) {
+                  var e = a.options[b];
+                  window.context_menu[f.el.id][a.control][e.name] = {
+                    title: e.title,
+                    action: e.action,
+                  };
+                }
+              (d.id = "gmaps_context_menu"),
+                (d.style.display = "none"),
+                (d.style.position = "absolute"),
+                (d.style.minWidth = "100px"),
+                (d.style.background = "white"),
+                (d.style.listStyle = "none"),
+                (d.style.padding = "8px"),
+                (d.style.boxShadow = "2px 2px 6px #ccc"),
+                i("gmaps_context_menu") || c.body.appendChild(d);
+              var g = i("gmaps_context_menu");
+              google.maps.event.addDomListener(
+                g,
+                "mouseout",
+                function (a) {
+                  (a.relatedTarget && this.contains(a.relatedTarget)) ||
+                    window.setTimeout(function () {
+                      g.style.display = "none";
+                    }, 400);
+                },
+                !1
+              );
+            }),
+            (this.hideContextMenu = function () {
+              var a = i("gmaps_context_menu");
+              a && (a.style.display = "none");
+            });
+          var E = function (a, c) {
+            google.maps.event.addListener(a, c, function (a) {
+              void 0 == a && (a = this),
+                b[c].apply(this, [a]),
+                f.hideContextMenu();
+            });
+          };
+          google.maps.event.addListener(
+            this.map,
+            "zoom_changed",
+            this.hideContextMenu
+          );
+          for (var F = 0; F < k.length; F++) {
+            var G = k[F];
+            G in b && E(this.map, G);
+          }
+          for (var F = 0; F < l.length; F++) {
+            var G = l[F];
+            G in b && E(this.map, G);
+          }
+          google.maps.event.addListener(this.map, "rightclick", function (a) {
+            b.rightclick && b.rightclick.apply(this, [a]),
+              void 0 != window.context_menu[f.el.id].map &&
+                f.buildContextMenu("map", a);
+          }),
+            (this.refresh = function () {
+              google.maps.event.trigger(this.map, "resize");
+            }),
+            (this.fitZoom = function () {
+              var c,
+                a = [],
+                b = this.markers.length;
+              for (c = 0; c < b; c++)
+                "boolean" === typeof this.markers[c].visible &&
+                  this.markers[c].visible &&
+                  a.push(this.markers[c].getPosition());
+              this.fitLatLngBounds(a);
+            }),
+            (this.fitLatLngBounds = function (a) {
+              var d,
+                b = a.length,
+                c = new google.maps.LatLngBounds();
+              for (d = 0; d < b; d++) c.extend(a[d]);
+              this.map.fitBounds(c);
+            }),
+            (this.setCenter = function (a, b, c) {
+              this.map.panTo(new google.maps.LatLng(a, b)), c && c();
+            }),
+            (this.getElement = function () {
+              return this.el;
+            }),
+            (this.zoomIn = function (a) {
+              (a = a || 1),
+                (this.zoom = this.map.getZoom() + a),
+                this.map.setZoom(this.zoom);
+            }),
+            (this.zoomOut = function (a) {
+              (a = a || 1),
+                (this.zoom = this.map.getZoom() - a),
+                this.map.setZoom(this.zoom);
+            });
+          var I,
+            H = [];
+          for (I in this.map)
+            "function" != typeof this.map[I] || this[I] || H.push(I);
+          for (g = 0; g < H.length; g++)
+            !(function (a, b, c) {
+              a[c] = function () {
+                return b[c].apply(b, arguments);
+              };
+            })(this, this.map, H[g]);
+        };
+      return d;
+    })(this);
+  (k.prototype.createControl = function (a) {
+    var b = document.createElement("div");
+    (b.style.cursor = "pointer"),
+      a.disableDefaultStyles !== !0 &&
         ((b.style.fontFamily = "Roboto, Arial, sans-serif"),
         (b.style.fontSize = "11px"),
-        (b.style.boxShadow = "rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px")),
-      a.style))
-        b.style[c] = a.style[c];
-      for (var d in (a.id && (b.id = a.id),
+        (b.style.boxShadow = "rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px"));
+    for (var c in a.style) b.style[c] = a.style[c];
+    a.id && (b.id = a.id),
       a.title && (b.title = a.title),
       a.classes && (b.className = a.classes),
       a.content &&
-        ("string" == typeof a.content
+        ("string" === typeof a.content
           ? (b.innerHTML = a.content)
           : a.content instanceof HTMLElement && b.appendChild(a.content)),
       a.position &&
-        (b.position = google.maps.ControlPosition[a.position.toUpperCase()]),
-      a.events))
-        !(function (b, c) {
-          google.maps.event.addDomListener(b, c, function () {
-            a.events[c].apply(this, [this]);
-          });
-        })(b, d);
-      return (b.index = 1), b;
+        (b.position = google.maps.ControlPosition[a.position.toUpperCase()]);
+    for (var d in a.events)
+      !(function (b, c) {
+        google.maps.event.addDomListener(b, c, function () {
+          a.events[c].apply(this, [this]);
+        });
+      })(b, d);
+    return (b.index = 1), b;
+  }),
+    (k.prototype.addControl = function (a) {
+      var b = this.createControl(a);
+      return this.controls.push(b), this.map.controls[b.position].push(b), b;
     }),
-    (a.prototype.addControl = function (b) {
-      var a = this.createControl(b);
-      return this.controls.push(a), this.map.controls[a.position].push(a), a;
-    }),
-    (a.prototype.removeControl = function (b) {
-      var a,
-        c = null;
-      for (a = 0; a < this.controls.length; a++)
-        this.controls[a] == b &&
-          ((c = this.controls[a].position), this.controls.splice(a, 1));
-      if (c)
-        for (a = 0; a < this.map.controls.length; a++) {
-          var d = this.map.controls[b.position];
-          if (d.getAt(a) == b) {
-            d.removeAt(a);
+    (k.prototype.removeControl = function (a) {
+      var c,
+        b = null;
+      for (c = 0; c < this.controls.length; c++)
+        this.controls[c] == a &&
+          ((b = this.controls[c].position), this.controls.splice(c, 1));
+      if (b)
+        for (c = 0; c < this.map.controls.length; c++) {
+          var d = this.map.controls[a.position];
+          if (d.getAt(c) == a) {
+            d.removeAt(c);
             break;
           }
         }
-      return b;
+      return a;
     }),
-    (a.prototype.createMarker = function (a) {
-      if (void 0 == a.lat && void 0 == a.lng && void 0 == a.position)
+    (k.prototype.createMarker = function (b) {
+      if (void 0 == b.lat && void 0 == b.lng && void 0 == b.position)
         throw "No latitude or longitude defined.";
-      var k = this,
-        l = a.details,
-        i = a.fences,
-        m = a.outside,
-        j = { position: new google.maps.LatLng(a.lat, a.lng), map: null },
-        d = f(j, a);
-      delete d.lat, delete d.lng, delete d.fences, delete d.outside;
-      var c = new google.maps.Marker(d);
-      if (((c.fences = i), a.infoWindow)) {
-        c.infoWindow = new google.maps.InfoWindow(a.infoWindow);
+      var c = this,
+        d = b.details,
+        e = b.fences,
+        f = b.outside,
+        g = { position: new google.maps.LatLng(b.lat, b.lng), map: null },
+        h = a(g, b);
+      delete h.lat, delete h.lng, delete h.fences, delete h.outside;
+      var i = new google.maps.Marker(h);
+      if (((i.fences = e), b.infoWindow)) {
+        i.infoWindow = new google.maps.InfoWindow(b.infoWindow);
         for (
-          var e = [
+          var j = [
               "closeclick",
               "content_changed",
               "domready",
               "position_changed",
               "zindex_changed",
             ],
-            b = 0;
-          b < e.length;
-          b++
+            k = 0;
+          k < j.length;
+          k++
         )
-          !(function (c, b) {
-            a.infoWindow[b] &&
-              google.maps.event.addListener(c, b, function (c) {
-                a.infoWindow[b].apply(this, [c]);
+          !(function (a, c) {
+            b.infoWindow[c] &&
+              google.maps.event.addListener(a, c, function (a) {
+                b.infoWindow[c].apply(this, [a]);
               });
-          })(c.infoWindow, e[b]);
+          })(i.infoWindow, j[k]);
       }
       for (
-        var g = [
+        var l = [
             "animation_changed",
             "clickable_changed",
             "cursor_changed",
@@ -456,7 +453,7 @@
             "visible_changed",
             "zindex_changed",
           ],
-          h = [
+          m = [
             "dblclick",
             "drag",
             "dragend",
@@ -466,230 +463,227 @@
             "mouseover",
             "mouseup",
           ],
-          b = 0;
-        b < g.length;
-        b++
+          k = 0;
+        k < l.length;
+        k++
       )
-        !(function (c, b) {
-          a[b] &&
-            google.maps.event.addListener(c, b, function () {
-              a[b].apply(this, [this]);
+        !(function (a, c) {
+          b[c] &&
+            google.maps.event.addListener(a, c, function () {
+              b[c].apply(this, [this]);
             });
-        })(c, g[b]);
-      for (var b = 0; b < h.length; b++)
-        !(function (d, c, b) {
-          a[b] &&
-            google.maps.event.addListener(c, b, function (c) {
+        })(i, l[k]);
+      for (var k = 0; k < m.length; k++)
+        !(function (a, c, d) {
+          b[d] &&
+            google.maps.event.addListener(c, d, function (c) {
               c.pixel ||
-                (c.pixel = d.getProjection().fromLatLngToPoint(c.latLng)),
-                a[b].apply(this, [c]);
+                (c.pixel = a.getProjection().fromLatLngToPoint(c.latLng)),
+                b[d].apply(this, [c]);
             });
-        })(this.map, c, h[b]);
+        })(this.map, i, m[k]);
       return (
-        google.maps.event.addListener(c, "click", function () {
-          (this.details = l),
-            a.click && a.click.apply(this, [this]),
-            c.infoWindow && (k.hideInfoWindows(), c.infoWindow.open(k.map, c));
+        google.maps.event.addListener(i, "click", function () {
+          (this.details = d),
+            b.click && b.click.apply(this, [this]),
+            i.infoWindow && (c.hideInfoWindows(), i.infoWindow.open(c.map, i));
         }),
-        google.maps.event.addListener(c, "rightclick", function (b) {
-          (b.marker = this),
-            a.rightclick && a.rightclick.apply(this, [b]),
-            void 0 != window.context_menu[k.el.id].marker &&
-              k.buildContextMenu("marker", b);
+        google.maps.event.addListener(i, "rightclick", function (a) {
+          (a.marker = this),
+            b.rightclick && b.rightclick.apply(this, [a]),
+            void 0 != window.context_menu[c.el.id].marker &&
+              c.buildContextMenu("marker", a);
         }),
-        c.fences &&
-          google.maps.event.addListener(c, "dragend", function () {
-            k.checkMarkerGeofence(c, function (a, b) {
-              m(a, b);
+        i.fences &&
+          google.maps.event.addListener(i, "dragend", function () {
+            c.checkMarkerGeofence(i, function (a, b) {
+              f(a, b);
             });
           }),
-        c
+        i
       );
     }),
-    (a.prototype.addMarker = function (c) {
+    (k.prototype.addMarker = function (a) {
       var b;
-      if (c.hasOwnProperty("gm_accessors_")) b = c;
-      else if (
-        (c.hasOwnProperty("lat") && c.hasOwnProperty("lng")) ||
-        c.position
-      )
-        b = this.createMarker(c);
-      else throw "No latitude or longitude defined.";
+      if (a.hasOwnProperty("gm_accessors_")) b = a;
+      else {
+        if (
+          !((a.hasOwnProperty("lat") && a.hasOwnProperty("lng")) || a.position)
+        )
+          throw "No latitude or longitude defined.";
+        b = this.createMarker(a);
+      }
       return (
         b.setMap(this.map),
         this.markerClusterer && this.markerClusterer.addMarker(b),
         this.markers.push(b),
-        a.fire("marker_added", b, this),
+        k.fire("marker_added", b, this),
         b
       );
     }),
-    (a.prototype.addMarkers = function (c) {
-      for (var a, b = 0; (a = c[b]); b++) this.addMarker(a);
+    (k.prototype.addMarkers = function (a) {
+      for (var c, b = 0; (c = a[b]); b++) this.addMarker(c);
       return this.markers;
     }),
-    (a.prototype.hideInfoWindows = function () {
-      for (var a, b = 0; (a = this.markers[b]); b++)
-        a.infoWindow && a.infoWindow.close();
+    (k.prototype.hideInfoWindows = function () {
+      for (var b, a = 0; (b = this.markers[a]); a++)
+        b.infoWindow && b.infoWindow.close();
     }),
-    (a.prototype.removeMarker = function (c) {
+    (k.prototype.removeMarker = function (a) {
       for (var b = 0; b < this.markers.length; b++)
-        if (this.markers[b] === c) {
+        if (this.markers[b] === a) {
           this.markers[b].setMap(null),
             this.markers.splice(b, 1),
-            this.markerClusterer && this.markerClusterer.removeMarker(c),
-            a.fire("marker_removed", c, this);
+            this.markerClusterer && this.markerClusterer.removeMarker(a),
+            k.fire("marker_removed", a, this);
           break;
         }
-      return c;
+      return a;
     }),
-    (a.prototype.removeMarkers = function (d) {
-      var e = [];
-      if (void 0 === d) {
-        for (var b = 0; b < this.markers.length; b++) {
-          var c = this.markers[b];
-          c.setMap(null), a.fire("marker_removed", c, this);
+    (k.prototype.removeMarkers = function (a) {
+      var b = [];
+      if ("undefined" == typeof a) {
+        for (var c = 0; c < this.markers.length; c++) {
+          var d = this.markers[c];
+          d.setMap(null), k.fire("marker_removed", d, this);
         }
         this.markerClusterer &&
           this.markerClusterer.clearMarkers &&
           this.markerClusterer.clearMarkers(),
-          (this.markers = e);
+          (this.markers = b);
       } else {
-        for (var b = 0; b < d.length; b++) {
-          var f = this.markers.indexOf(d[b]);
-          if (f > -1) {
-            var c = this.markers[f];
-            c.setMap(null),
-              this.markerClusterer && this.markerClusterer.removeMarker(c),
-              a.fire("marker_removed", c, this);
+        for (var c = 0; c < a.length; c++) {
+          var e = this.markers.indexOf(a[c]);
+          if (e > -1) {
+            var d = this.markers[e];
+            d.setMap(null),
+              this.markerClusterer && this.markerClusterer.removeMarker(d),
+              k.fire("marker_removed", d, this);
           }
         }
-        for (var b = 0; b < this.markers.length; b++) {
-          var c = this.markers[b];
-          null != c.getMap() && e.push(c);
+        for (var c = 0; c < this.markers.length; c++) {
+          var d = this.markers[c];
+          null != d.getMap() && b.push(d);
         }
-        this.markers = e;
+        this.markers = b;
       }
     }),
-    (a.prototype.drawOverlay = function (b) {
-      var a = new google.maps.OverlayView(),
+    (k.prototype.drawOverlay = function (a) {
+      var b = new google.maps.OverlayView(),
         c = !0;
       return (
-        a.setMap(this.map),
-        null != b.auto_show && (c = b.auto_show),
-        (a.onAdd = function () {
-          var e,
-            f,
-            c = document.createElement("div");
+        b.setMap(this.map),
+        null != a.auto_show && (c = a.auto_show),
+        (b.onAdd = function () {
+          var c = document.createElement("div");
           (c.style.borderStyle = "none"),
             (c.style.borderWidth = "0px"),
             (c.style.position = "absolute"),
             (c.style.zIndex = 100),
-            (c.innerHTML = b.content),
-            (a.el = c),
-            b.layer || (b.layer = "overlayLayer");
-          var g = this.getPanes(),
-            i = g[b.layer],
-            h = ["contextmenu", "DOMMouseScroll", "dblclick", "mousedown"];
-          i.appendChild(c);
-          for (var d = 0; d < h.length; d++)
-            (e = c),
-              (f = h[d]),
-              google.maps.event.addDomListener(e, f, function (a) {
+            (c.innerHTML = a.content),
+            (b.el = c),
+            a.layer || (a.layer = "overlayLayer");
+          var d = this.getPanes(),
+            e = d[a.layer],
+            f = ["contextmenu", "DOMMouseScroll", "dblclick", "mousedown"];
+          e.appendChild(c);
+          for (var g = 0; g < f.length; g++)
+            !(function (a, b) {
+              google.maps.event.addDomListener(a, b, function (a) {
                 -1 != navigator.userAgent.toLowerCase().indexOf("msie") &&
                 document.all
                   ? ((a.cancelBubble = !0), (a.returnValue = !1))
                   : a.stopPropagation();
               });
-          b.click &&
-            (g.overlayMouseTarget.appendChild(a.el),
-            google.maps.event.addDomListener(a.el, "click", function () {
-              b.click.apply(a, [a]);
+            })(c, f[g]);
+          a.click &&
+            (d.overlayMouseTarget.appendChild(b.el),
+            google.maps.event.addDomListener(b.el, "click", function () {
+              a.click.apply(b, [b]);
             })),
             google.maps.event.trigger(this, "ready");
         }),
-        (a.draw = function () {
-          var e = this.getProjection().fromLatLngToDivPixel(
-            new google.maps.LatLng(b.lat, b.lng)
-          );
-          (b.horizontalOffset = b.horizontalOffset || 0),
-            (b.verticalOffset = b.verticalOffset || 0);
-          var d = a.el,
-            f = d.children[0],
-            g = f.clientHeight,
-            h = f.clientWidth;
-          switch (b.verticalAlign) {
+        (b.draw = function () {
+          var d = this.getProjection(),
+            e = d.fromLatLngToDivPixel(new google.maps.LatLng(a.lat, a.lng));
+          (a.horizontalOffset = a.horizontalOffset || 0),
+            (a.verticalOffset = a.verticalOffset || 0);
+          var f = b.el,
+            g = f.children[0],
+            h = g.clientHeight,
+            i = g.clientWidth;
+          switch (a.verticalAlign) {
             case "top":
-              d.style.top = e.y - g + b.verticalOffset + "px";
+              f.style.top = e.y - h + a.verticalOffset + "px";
               break;
             default:
             case "middle":
-              d.style.top = e.y - g / 2 + b.verticalOffset + "px";
+              f.style.top = e.y - h / 2 + a.verticalOffset + "px";
               break;
             case "bottom":
-              d.style.top = e.y + b.verticalOffset + "px";
+              f.style.top = e.y + a.verticalOffset + "px";
           }
-          switch (b.horizontalAlign) {
+          switch (a.horizontalAlign) {
             case "left":
-              d.style.left = e.x - h + b.horizontalOffset + "px";
+              f.style.left = e.x - i + a.horizontalOffset + "px";
               break;
             default:
             case "center":
-              d.style.left = e.x - h / 2 + b.horizontalOffset + "px";
+              f.style.left = e.x - i / 2 + a.horizontalOffset + "px";
               break;
             case "right":
-              d.style.left = e.x + b.horizontalOffset + "px";
+              f.style.left = e.x + a.horizontalOffset + "px";
           }
-          (d.style.display = c ? "block" : "none"),
-            c || b.show.apply(this, [d]);
+          (f.style.display = c ? "block" : "none"),
+            c || a.show.apply(this, [f]);
         }),
-        (a.onRemove = function () {
-          var c = a.el;
-          b.remove
-            ? b.remove.apply(this, [c])
-            : (a.el.parentNode.removeChild(a.el), (a.el = null));
+        (b.onRemove = function () {
+          var c = b.el;
+          a.remove
+            ? a.remove.apply(this, [c])
+            : (b.el.parentNode.removeChild(b.el), (b.el = null));
         }),
-        this.overlays.push(a),
-        a
+        this.overlays.push(b),
+        b
       );
     }),
-    (a.prototype.removeOverlay = function (b) {
-      for (var a = 0; a < this.overlays.length; a++)
-        if (this.overlays[a] === b) {
-          this.overlays[a].setMap(null), this.overlays.splice(a, 1);
+    (k.prototype.removeOverlay = function (a) {
+      for (var b = 0; b < this.overlays.length; b++)
+        if (this.overlays[b] === a) {
+          this.overlays[b].setMap(null), this.overlays.splice(b, 1);
           break;
         }
     }),
-    (a.prototype.removeOverlays = function () {
-      for (var a, b = 0; (a = this.overlays[b]); b++) a.setMap(null);
+    (k.prototype.removeOverlays = function () {
+      for (var b, a = 0; (b = this.overlays[a]); a++) b.setMap(null);
       this.overlays = [];
     }),
-    (a.prototype.drawPolyline = function (b) {
-      var f = [],
-        d = b.path;
-      if (d.length) {
-        if (void 0 === d[0][0]) f = d;
+    (k.prototype.drawPolyline = function (a) {
+      var b = [],
+        c = a.path;
+      if (c.length)
+        if (void 0 === c[0][0]) b = c;
         else
-          for (var g, i = 0; (g = d[i]); i++)
-            f.push(new google.maps.LatLng(g[0], g[1]));
-      }
-      var c = {
+          for (var e, d = 0; (e = c[d]); d++)
+            b.push(new google.maps.LatLng(e[0], e[1]));
+      var f = {
         map: this.map,
-        path: f,
-        strokeColor: b.strokeColor,
-        strokeOpacity: b.strokeOpacity,
-        strokeWeight: b.strokeWeight,
-        geodesic: b.geodesic,
+        path: b,
+        strokeColor: a.strokeColor,
+        strokeOpacity: a.strokeOpacity,
+        strokeWeight: a.strokeWeight,
+        geodesic: a.geodesic,
         clickable: !0,
         editable: !1,
         visible: !0,
       };
-      b.hasOwnProperty("clickable") && (c.clickable = b.clickable),
-        b.hasOwnProperty("editable") && (c.editable = b.editable),
-        b.hasOwnProperty("icons") && (c.icons = b.icons),
-        b.hasOwnProperty("zIndex") && (c.zIndex = b.zIndex);
+      a.hasOwnProperty("clickable") && (f.clickable = a.clickable),
+        a.hasOwnProperty("editable") && (f.editable = a.editable),
+        a.hasOwnProperty("icons") && (f.icons = a.icons),
+        a.hasOwnProperty("zIndex") && (f.zIndex = a.zIndex);
       for (
-        var e = new google.maps.Polyline(c),
-          j = [
+        var g = new google.maps.Polyline(f),
+          h = [
             "click",
             "dblclick",
             "mousedown",
@@ -699,104 +693,41 @@
             "mouseup",
             "rightclick",
           ],
-          h = 0;
-        h < j.length;
-        h++
+          i = 0;
+        i < h.length;
+        i++
       )
-        !(function (c, a) {
-          b[a] &&
-            google.maps.event.addListener(c, a, function (c) {
-              b[a].apply(this, [c]);
+        !(function (b, c) {
+          a[c] &&
+            google.maps.event.addListener(b, c, function (b) {
+              a[c].apply(this, [b]);
             });
-        })(e, j[h]);
-      return this.polylines.push(e), a.fire("polyline_added", e, this), e;
+        })(g, h[i]);
+      return this.polylines.push(g), k.fire("polyline_added", g, this), g;
     }),
-    (a.prototype.removePolyline = function (c) {
+    (k.prototype.removePolyline = function (a) {
       for (var b = 0; b < this.polylines.length; b++)
-        if (this.polylines[b] === c) {
+        if (this.polylines[b] === a) {
           this.polylines[b].setMap(null),
             this.polylines.splice(b, 1),
-            a.fire("polyline_removed", c, this);
+            k.fire("polyline_removed", a, this);
           break;
         }
     }),
-    (a.prototype.removePolylines = function () {
-      for (var a, b = 0; (a = this.polylines[b]); b++) a.setMap(null);
+    (k.prototype.removePolylines = function () {
+      for (var b, a = 0; (b = this.polylines[a]); a++) b.setMap(null);
       this.polylines = [];
     }),
-    (a.prototype.drawCircle = function (a) {
-      delete (a = f(
-        { map: this.map, center: new google.maps.LatLng(a.lat, a.lng) },
-        a
-      )).lat,
-        delete a.lng;
+    (k.prototype.drawCircle = function (b) {
+      (b = a(
+        { map: this.map, center: new google.maps.LatLng(b.lat, b.lng) },
+        b
+      )),
+        delete b.lat,
+        delete b.lng;
       for (
-        var b = new google.maps.Circle(a),
+        var c = new google.maps.Circle(b),
           d = [
-            "click",
-            "dblclick",
-            "mousedown",
-            "mousemove",
-            "mouseout",
-            "mouseover",
-            "mouseup",
-            "rightclick",
-          ],
-          c = 0;
-        c < d.length;
-        c++
-      )
-        !(function (c, b) {
-          a[b] &&
-            google.maps.event.addListener(c, b, function (c) {
-              a[b].apply(this, [c]);
-            });
-        })(b, d[c]);
-      return this.polygons.push(b), b;
-    }),
-    (a.prototype.drawRectangle = function (a) {
-      a = f({ map: this.map }, a);
-      var e = new google.maps.LatLngBounds(
-        new google.maps.LatLng(a.bounds[0][0], a.bounds[0][1]),
-        new google.maps.LatLng(a.bounds[1][0], a.bounds[1][1])
-      );
-      a.bounds = e;
-      for (
-        var b = new google.maps.Rectangle(a),
-          d = [
-            "click",
-            "dblclick",
-            "mousedown",
-            "mousemove",
-            "mouseout",
-            "mouseover",
-            "mouseup",
-            "rightclick",
-          ],
-          c = 0;
-        c < d.length;
-        c++
-      )
-        !(function (c, b) {
-          a[b] &&
-            google.maps.event.addListener(c, b, function (c) {
-              a[b].apply(this, [c]);
-            });
-        })(b, d[c]);
-      return this.polygons.push(b), b;
-    }),
-    (a.prototype.drawPolygon = function (b) {
-      var d = !1;
-      b.hasOwnProperty("useGeoJSON") && (d = b.useGeoJSON),
-        delete b.useGeoJSON,
-        (b = f({ map: this.map }, b)),
-        !1 == d && (b.paths = [b.paths.slice(0)]),
-        b.paths.length > 0 &&
-          b.paths[0].length > 0 &&
-          (b.paths = h(g(b.paths, j, d)));
-      for (
-        var c = new google.maps.Polygon(b),
-          i = [
             "click",
             "dblclick",
             "mousedown",
@@ -807,129 +738,195 @@
             "rightclick",
           ],
           e = 0;
-        e < i.length;
+        e < d.length;
         e++
       )
-        !(function (c, a) {
-          b[a] &&
-            google.maps.event.addListener(c, a, function (c) {
-              b[a].apply(this, [c]);
+        !(function (a, c) {
+          b[c] &&
+            google.maps.event.addListener(a, c, function (a) {
+              b[c].apply(this, [a]);
             });
-        })(c, i[e]);
-      return this.polygons.push(c), a.fire("polygon_added", c, this), c;
+        })(c, d[e]);
+      return this.polygons.push(c), c;
     }),
-    (a.prototype.removePolygon = function (c) {
+    (k.prototype.drawRectangle = function (b) {
+      b = a({ map: this.map }, b);
+      var c = new google.maps.LatLngBounds(
+        new google.maps.LatLng(b.bounds[0][0], b.bounds[0][1]),
+        new google.maps.LatLng(b.bounds[1][0], b.bounds[1][1])
+      );
+      b.bounds = c;
+      for (
+        var d = new google.maps.Rectangle(b),
+          e = [
+            "click",
+            "dblclick",
+            "mousedown",
+            "mousemove",
+            "mouseout",
+            "mouseover",
+            "mouseup",
+            "rightclick",
+          ],
+          f = 0;
+        f < e.length;
+        f++
+      )
+        !(function (a, c) {
+          b[c] &&
+            google.maps.event.addListener(a, c, function (a) {
+              b[c].apply(this, [a]);
+            });
+        })(d, e[f]);
+      return this.polygons.push(d), d;
+    }),
+    (k.prototype.drawPolygon = function (b) {
+      var e = !1;
+      b.hasOwnProperty("useGeoJSON") && (e = b.useGeoJSON),
+        delete b.useGeoJSON,
+        (b = a({ map: this.map }, b)),
+        0 == e && (b.paths = [b.paths.slice(0)]),
+        b.paths.length > 0 &&
+          b.paths[0].length > 0 &&
+          (b.paths = d(c(b.paths, g, e)));
+      for (
+        var f = new google.maps.Polygon(b),
+          h = [
+            "click",
+            "dblclick",
+            "mousedown",
+            "mousemove",
+            "mouseout",
+            "mouseover",
+            "mouseup",
+            "rightclick",
+          ],
+          i = 0;
+        i < h.length;
+        i++
+      )
+        !(function (a, c) {
+          b[c] &&
+            google.maps.event.addListener(a, c, function (a) {
+              b[c].apply(this, [a]);
+            });
+        })(f, h[i]);
+      return this.polygons.push(f), k.fire("polygon_added", f, this), f;
+    }),
+    (k.prototype.removePolygon = function (a) {
       for (var b = 0; b < this.polygons.length; b++)
-        if (this.polygons[b] === c) {
+        if (this.polygons[b] === a) {
           this.polygons[b].setMap(null),
             this.polygons.splice(b, 1),
-            a.fire("polygon_removed", c, this);
+            k.fire("polygon_removed", a, this);
           break;
         }
     }),
-    (a.prototype.removePolygons = function () {
-      for (var a, b = 0; (a = this.polygons[b]); b++) a.setMap(null);
+    (k.prototype.removePolygons = function () {
+      for (var b, a = 0; (b = this.polygons[a]); a++) b.setMap(null);
       this.polygons = [];
     }),
-    (a.prototype.getFromFusionTables = function (a) {
-      var c = a.events;
+    (k.prototype.getFromFusionTables = function (a) {
+      var b = a.events;
       delete a.events;
-      var b = new google.maps.FusionTablesLayer(a);
-      for (var d in c)
+      var c = a,
+        d = new google.maps.FusionTablesLayer(c);
+      for (var e in b)
+        !(function (a, c) {
+          google.maps.event.addListener(a, c, function (a) {
+            b[c].apply(this, [a]);
+          });
+        })(d, e);
+      return this.layers.push(d), d;
+    }),
+    (k.prototype.loadFromFusionTables = function (a) {
+      var b = this.getFromFusionTables(a);
+      return b.setMap(this.map), b;
+    }),
+    (k.prototype.getFromKML = function (a) {
+      var b = a.url,
+        c = a.events;
+      delete a.url, delete a.events;
+      var d = a,
+        e = new google.maps.KmlLayer(b, d);
+      for (var f in c)
         !(function (a, b) {
           google.maps.event.addListener(a, b, function (a) {
             c[b].apply(this, [a]);
           });
-        })(b, d);
-      return this.layers.push(b), b;
+        })(e, f);
+      return this.layers.push(e), e;
     }),
-    (a.prototype.loadFromFusionTables = function (b) {
-      var a = this.getFromFusionTables(b);
-      return a.setMap(this.map), a;
+    (k.prototype.loadFromKML = function (a) {
+      var b = this.getFromKML(a);
+      return b.setMap(this.map), b;
     }),
-    (a.prototype.getFromKML = function (a) {
-      var c = a.url,
-        d = a.events;
-      delete a.url, delete a.events;
-      var b = new google.maps.KmlLayer(c, a);
-      for (var e in d)
-        !(function (a, b) {
-          google.maps.event.addListener(a, b, function (a) {
-            d[b].apply(this, [a]);
-          });
-        })(b, e);
-      return this.layers.push(b), b;
-    }),
-    (a.prototype.loadFromKML = function (b) {
-      var a = this.getFromKML(b);
-      return a.setMap(this.map), a;
-    }),
-    (a.prototype.addLayer = function (d, a) {
-      switch (((a = a || {}), d)) {
+    (k.prototype.addLayer = function (a, b) {
+      b = b || {};
+      var c;
+      switch (a) {
         case "weather":
-          this.singleLayers.weather = b =
+          this.singleLayers.weather = c =
             new google.maps.weather.WeatherLayer();
           break;
         case "clouds":
-          this.singleLayers.clouds = b = new google.maps.weather.CloudLayer();
+          this.singleLayers.clouds = c = new google.maps.weather.CloudLayer();
           break;
         case "traffic":
-          this.singleLayers.traffic = b = new google.maps.TrafficLayer();
+          this.singleLayers.traffic = c = new google.maps.TrafficLayer();
           break;
         case "transit":
-          this.singleLayers.transit = b = new google.maps.TransitLayer();
+          this.singleLayers.transit = c = new google.maps.TransitLayer();
           break;
         case "bicycling":
-          this.singleLayers.bicycling = b = new google.maps.BicyclingLayer();
+          this.singleLayers.bicycling = c = new google.maps.BicyclingLayer();
           break;
         case "panoramio":
-          (this.singleLayers.panoramio = b =
+          (this.singleLayers.panoramio = c =
             new google.maps.panoramio.PanoramioLayer()),
-            b.setTag(a.filter),
-            delete a.filter,
-            a.click &&
-              google.maps.event.addListener(b, "click", function (b) {
-                a.click(b), delete a.click;
+            c.setTag(b.filter),
+            delete b.filter,
+            b.click &&
+              google.maps.event.addListener(c, "click", function (a) {
+                b.click(a), delete b.click;
               });
           break;
         case "places":
           if (
-            ((this.singleLayers.places = b =
+            ((this.singleLayers.places = c =
               new google.maps.places.PlacesService(this.map)),
-            a.search || a.nearbySearch || a.radarSearch)
+            b.search || b.nearbySearch || b.radarSearch)
           ) {
-            var b,
-              c = {
-                bounds: a.bounds || null,
-                keyword: a.keyword || null,
-                location: a.location || null,
-                name: a.name || null,
-                radius: a.radius || null,
-                rankBy: a.rankBy || null,
-                types: a.types || null,
-              };
-            a.radarSearch && b.radarSearch(c, a.radarSearch),
-              a.search && b.search(c, a.search),
-              a.nearbySearch && b.nearbySearch(c, a.nearbySearch);
-          }
-          if (a.textSearch) {
-            var e = {
-              bounds: a.bounds || null,
-              location: a.location || null,
-              query: a.query || null,
-              radius: a.radius || null,
+            var d = {
+              bounds: b.bounds || null,
+              keyword: b.keyword || null,
+              location: b.location || null,
+              name: b.name || null,
+              radius: b.radius || null,
+              rankBy: b.rankBy || null,
+              types: b.types || null,
             };
-            b.textSearch(e, a.textSearch);
+            b.radarSearch && c.radarSearch(d, b.radarSearch),
+              b.search && c.search(d, b.search),
+              b.nearbySearch && c.nearbySearch(d, b.nearbySearch);
+          }
+          if (b.textSearch) {
+            var e = {
+              bounds: b.bounds || null,
+              location: b.location || null,
+              query: b.query || null,
+              radius: b.radius || null,
+            };
+            c.textSearch(e, b.textSearch);
           }
       }
-      if (void 0 !== b)
-        return (
-          "function" == typeof b.setOptions && b.setOptions(a),
-          "function" == typeof b.setMap && b.setMap(this.map),
-          b
-        );
+      return void 0 !== c
+        ? ("function" == typeof c.setOptions && c.setOptions(b),
+          "function" == typeof c.setMap && c.setMap(this.map),
+          c)
+        : void 0;
     }),
-    (a.prototype.removeLayer = function (a) {
+    (k.prototype.removeLayer = function (a) {
       if ("string" == typeof a && void 0 !== this.singleLayers[a])
         this.singleLayers[a].setMap(null), delete this.singleLayers[a];
       else
@@ -938,102 +935,103 @@
             this.layers[b].setMap(null), this.layers.splice(b, 1);
             break;
           }
-    }),
-    (a.prototype.getRoutes = function (a) {
-      switch (a.travelMode) {
+    });
+  var l, m;
+  return (
+    (k.prototype.getRoutes = function (b) {
+      switch (b.travelMode) {
         case "bicycling":
-          d = google.maps.TravelMode.BICYCLING;
+          l = google.maps.TravelMode.BICYCLING;
           break;
         case "transit":
-          d = google.maps.TravelMode.TRANSIT;
+          l = google.maps.TravelMode.TRANSIT;
           break;
         case "driving":
-          d = google.maps.TravelMode.DRIVING;
+          l = google.maps.TravelMode.DRIVING;
           break;
         default:
-          d = google.maps.TravelMode.WALKING;
+          l = google.maps.TravelMode.WALKING;
       }
-      e =
-        "imperial" === a.unitSystem
+      m =
+        "imperial" === b.unitSystem
           ? google.maps.UnitSystem.IMPERIAL
           : google.maps.UnitSystem.METRIC;
-      var b = f(
-        {
+      var c = {
           avoidHighways: !1,
           avoidTolls: !1,
           optimizeWaypoints: !1,
           waypoints: [],
         },
-        a
-      );
-      (b.origin = /string/.test(typeof a.origin)
-        ? a.origin
-        : new google.maps.LatLng(a.origin[0], a.origin[1])),
-        (b.destination = /string/.test(typeof a.destination)
-          ? a.destination
-          : new google.maps.LatLng(a.destination[0], a.destination[1])),
-        (b.travelMode = d),
-        (b.unitSystem = e),
-        delete b.callback,
-        delete b.error;
-      var c = [];
-      new google.maps.DirectionsService().route(b, function (b, d) {
-        if (d === google.maps.DirectionsStatus.OK) {
-          for (var e in b.routes)
-            b.routes.hasOwnProperty(e) && c.push(b.routes[e]);
-          a.callback && a.callback(c, b, d);
-        } else a.error && a.error(b, d);
+        d = a(c, b);
+      (d.origin = /string/.test(typeof b.origin)
+        ? b.origin
+        : new google.maps.LatLng(b.origin[0], b.origin[1])),
+        (d.destination = /string/.test(typeof b.destination)
+          ? b.destination
+          : new google.maps.LatLng(b.destination[0], b.destination[1])),
+        (d.travelMode = l),
+        (d.unitSystem = m),
+        delete d.callback,
+        delete d.error;
+      var f = [],
+        g = new google.maps.DirectionsService();
+      g.route(d, function (a, c) {
+        if (c === google.maps.DirectionsStatus.OK) {
+          for (var d in a.routes)
+            a.routes.hasOwnProperty(d) && f.push(a.routes[d]);
+          b.callback && b.callback(f, a, c);
+        } else b.error && b.error(a, c);
       });
     }),
-    (a.prototype.removeRoutes = function () {
+    (k.prototype.removeRoutes = function () {
       this.routes.length = 0;
     }),
-    (a.prototype.getElevations = function (a) {
-      (a = f({ locations: [], path: !1, samples: 256 }, a)).locations.length >
-        0 &&
-        a.locations[0].length > 0 &&
-        (a.locations = h(g([a.locations], j, !1)));
-      var d = a.callback;
-      delete a.callback;
-      var b = new google.maps.ElevationService();
-      if (a.path) {
-        var c = { path: a.locations, samples: a.samples };
-        b.getElevationAlongPath(c, function (a, b) {
-          d && "function" == typeof d && d(a, b);
+    (k.prototype.getElevations = function (b) {
+      (b = a({ locations: [], path: !1, samples: 256 }, b)),
+        b.locations.length > 0 &&
+          b.locations[0].length > 0 &&
+          (b.locations = d(c([b.locations], g, !1)));
+      var e = b.callback;
+      delete b.callback;
+      var f = new google.maps.ElevationService();
+      if (b.path) {
+        var h = { path: b.locations, samples: b.samples };
+        f.getElevationAlongPath(h, function (a, b) {
+          e && "function" === typeof e && e(a, b);
         });
       } else
-        delete a.path,
-          delete a.samples,
-          b.getElevationForLocations(a, function (a, b) {
-            d && "function" == typeof d && d(a, b);
+        delete b.path,
+          delete b.samples,
+          f.getElevationForLocations(b, function (a, b) {
+            e && "function" === typeof e && e(a, b);
           });
     }),
-    (a.prototype.cleanRoute = a.prototype.removePolylines),
-    (a.prototype.renderRoute = function (a, b) {
-      var c,
-        d =
-          "string" == typeof b.panel
-            ? document.getElementById(b.panel.replace("#", ""))
-            : b.panel;
-      (b.panel = d),
-        (b = f({ map: this.map }, b)),
-        (c = new google.maps.DirectionsRenderer(b)),
+    (k.prototype.cleanRoute = k.prototype.removePolylines),
+    (k.prototype.renderRoute = function (b, c) {
+      var f,
+        e =
+          "string" === typeof c.panel
+            ? document.getElementById(c.panel.replace("#", ""))
+            : c.panel;
+      (c.panel = e),
+        (c = a({ map: this.map }, c)),
+        (f = new google.maps.DirectionsRenderer(c)),
         this.getRoutes({
-          origin: a.origin,
-          destination: a.destination,
-          travelMode: a.travelMode,
-          waypoints: a.waypoints,
-          unitSystem: a.unitSystem,
-          error: a.error,
-          avoidHighways: a.avoidHighways,
-          avoidTolls: a.avoidTolls,
-          optimizeWaypoints: a.optimizeWaypoints,
-          callback: function (d, a, b) {
-            b === google.maps.DirectionsStatus.OK && c.setDirections(a);
+          origin: b.origin,
+          destination: b.destination,
+          travelMode: b.travelMode,
+          waypoints: b.waypoints,
+          unitSystem: b.unitSystem,
+          error: b.error,
+          avoidHighways: b.avoidHighways,
+          avoidTolls: b.avoidTolls,
+          optimizeWaypoints: b.optimizeWaypoints,
+          callback: function (a, b, c) {
+            c === google.maps.DirectionsStatus.OK && f.setDirections(b);
           },
         });
     }),
-    (a.prototype.drawRoute = function (a) {
+    (k.prototype.drawRoute = function (a) {
       var b = this;
       this.getRoutes({
         origin: a.origin,
@@ -1060,7 +1058,7 @@
         },
       });
     }),
-    (a.prototype.travelRoute = function (a) {
+    (k.prototype.travelRoute = function (a) {
       if (a.origin && a.destination)
         this.getRoutes({
           origin: a.origin,
@@ -1076,18 +1074,18 @@
             ) {
               var c = b[b.length - 1];
               if (c.legs.length > 0)
-                for (var d, f = c.legs[0].steps, e = 0; (d = f[e]); e++)
-                  (d.step_number = e), a.step(d, c.legs[0].steps.length - 1);
+                for (var f, d = c.legs[0].steps, e = 0; (f = d[e]); e++)
+                  (f.step_number = e), a.step(f, c.legs[0].steps.length - 1);
             }
             b.length > 0 && a.end && a.end(b[b.length - 1]);
           },
         });
       else if (a.route && a.route.legs.length > 0)
-        for (var b, d = a.route.legs[0].steps, c = 0; (b = d[c]); c++)
-          (b.step_number = c), a.step(b);
+        for (var d, b = a.route.legs[0].steps, c = 0; (d = b[c]); c++)
+          (d.step_number = c), a.step(d);
     }),
-    (a.prototype.drawSteppedRoute = function (a) {
-      var e = this;
+    (k.prototype.drawSteppedRoute = function (a) {
+      var b = this;
       if (a.origin && a.destination)
         this.getRoutes({
           origin: a.origin,
@@ -1095,44 +1093,44 @@
           travelMode: a.travelMode,
           waypoints: a.waypoints,
           error: a.error,
-          callback: function (b) {
+          callback: function (c) {
             if (
-              (b.length > 0 && a.start && a.start(b[b.length - 1]),
-              b.length > 0 && a.step)
+              (c.length > 0 && a.start && a.start(c[c.length - 1]),
+              c.length > 0 && a.step)
             ) {
-              var d = b[b.length - 1];
+              var d = c[c.length - 1];
               if (d.legs.length > 0)
-                for (var c, h = d.legs[0].steps, f = 0; (c = h[f]); f++) {
-                  c.step_number = f;
-                  var g = {
-                    path: c.path,
+                for (var g, e = d.legs[0].steps, f = 0; (g = e[f]); f++) {
+                  g.step_number = f;
+                  var h = {
+                    path: g.path,
                     strokeColor: a.strokeColor,
                     strokeOpacity: a.strokeOpacity,
                     strokeWeight: a.strokeWeight,
                   };
-                  a.hasOwnProperty("icons") && (g.icons = a.icons),
-                    e.drawPolyline(g),
-                    a.step(c, d.legs[0].steps.length - 1);
+                  a.hasOwnProperty("icons") && (h.icons = a.icons),
+                    b.drawPolyline(h),
+                    a.step(g, d.legs[0].steps.length - 1);
                 }
             }
-            b.length > 0 && a.end && a.end(b[b.length - 1]);
+            c.length > 0 && a.end && a.end(c[c.length - 1]);
           },
         });
       else if (a.route && a.route.legs.length > 0)
-        for (var b, f = a.route.legs[0].steps, c = 0; (b = f[c]); c++) {
-          b.step_number = c;
-          var d = {
-            path: b.path,
+        for (var e, c = a.route.legs[0].steps, d = 0; (e = c[d]); d++) {
+          e.step_number = d;
+          var f = {
+            path: e.path,
             strokeColor: a.strokeColor,
             strokeOpacity: a.strokeOpacity,
             strokeWeight: a.strokeWeight,
           };
-          a.hasOwnProperty("icons") && (d.icons = a.icons),
-            e.drawPolyline(d),
-            a.step(b);
+          a.hasOwnProperty("icons") && (f.icons = a.icons),
+            b.drawPolyline(f),
+            a.step(e);
         }
     }),
-    (a.Route = function (a) {
+    (k.Route = function (a) {
       (this.origin = a.origin),
         (this.destination = a.destination),
         (this.waypoints = a.waypoints),
@@ -1150,7 +1148,7 @@
       a.hasOwnProperty("icons") && (b.icons = a.icons),
         (this.polyline = this.map.drawPolyline(b).getPath());
     }),
-    (a.Route.prototype.getRoute = function (a) {
+    (k.Route.prototype.getRoute = function (a) {
       var b = this;
       this.map.getRoutes({
         origin: this.origin,
@@ -1163,35 +1161,35 @@
         },
       });
     }),
-    (a.Route.prototype.back = function () {
+    (k.Route.prototype.back = function () {
       if (this.step_count > 0) {
         this.step_count--;
         var a = this.route.legs[0].steps[this.step_count].path;
         for (var b in a) a.hasOwnProperty(b) && this.polyline.pop();
       }
     }),
-    (a.Route.prototype.forward = function () {
+    (k.Route.prototype.forward = function () {
       if (this.step_count < this.steps_length) {
         var a = this.route.legs[0].steps[this.step_count].path;
         for (var b in a) a.hasOwnProperty(b) && this.polyline.push(a[b]);
         this.step_count++;
       }
     }),
-    (a.prototype.checkGeofence = function (a, b, c) {
+    (k.prototype.checkGeofence = function (a, b, c) {
       return c.containsLatLng(new google.maps.LatLng(a, b));
     }),
-    (a.prototype.checkMarkerGeofence = function (a, e) {
+    (k.prototype.checkMarkerGeofence = function (a, b) {
       if (a.fences)
-        for (var b, c = 0; (b = a.fences[c]); c++) {
-          var d = a.getPosition();
-          this.checkGeofence(d.lat(), d.lng(), b) || e(a, b);
+        for (var d, c = 0; (d = a.fences[c]); c++) {
+          var e = a.getPosition();
+          this.checkGeofence(e.lat(), e.lng(), d) || b(a, d);
         }
     }),
-    (a.prototype.toImage = function (e) {
-      var e = e || {},
+    (k.prototype.toImage = function (a) {
+      var a = a || {},
         b = {};
       if (
-        ((b.size = e.size || [this.el.clientWidth, this.el.clientHeight]),
+        ((b.size = a.size || [this.el.clientWidth, this.el.clientHeight]),
         (b.lat = this.getCenter().lat()),
         (b.lng = this.getCenter().lng()),
         this.markers.length > 0)
@@ -1213,149 +1211,148 @@
           (b.polyline.strokeOpacity = d.strokeOpacity),
           (b.polyline.strokeWeight = d.strokeWeight);
       }
-      return a.staticMapURL(b);
+      return k.staticMapURL(b);
     }),
-    (a.staticMapURL = function (a) {
-      var b,
-        c = [],
-        m =
+    (k.staticMapURL = function (a) {
+      function t(a, b) {
+        if ("#" === a[0] && ((a = a.replace("#", "0x")), b)) {
+          if (((b = parseFloat(b)), (b = Math.min(1, Math.max(b, 0))), 0 === b))
+            return "0x00000000";
+          (b = (255 * b).toString(16)),
+            1 === b.length && (b += b),
+            (a = a.slice(0, 8) + b);
+        }
+        return a;
+      }
+      var c,
+        b = [],
+        d =
           ("file:" === location.protocol ? "http:" : location.protocol) +
           "//maps.googleapis.com/maps/api/staticmap";
-      a.url && ((m = a.url), delete a.url), (m += "?");
-      var j = a.markers;
-      delete a.markers, !j && a.marker && ((j = [a.marker]), delete a.marker);
+      a.url && ((d = a.url), delete a.url), (d += "?");
+      var e = a.markers;
+      delete a.markers, !e && a.marker && ((e = [a.marker]), delete a.marker);
       var f = a.styles;
       delete a.styles;
-      var e = a.polyline;
+      var g = a.polyline;
       if ((delete a.polyline, a.center))
-        c.push("center=" + a.center), delete a.center;
-      else if (a.address) c.push("center=" + a.address), delete a.address;
+        b.push("center=" + a.center), delete a.center;
+      else if (a.address) b.push("center=" + a.address), delete a.address;
       else if (a.lat)
-        c.push(["center=", a.lat, ",", a.lng].join("")),
+        b.push(["center=", a.lat, ",", a.lng].join("")),
           delete a.lat,
           delete a.lng;
       else if (a.visible) {
-        var s = encodeURI(a.visible.join("|"));
-        c.push("visible=" + s);
+        var h = encodeURI(a.visible.join("|"));
+        b.push("visible=" + h);
       }
       var i = a.size;
       i ? (i.join && (i = i.join("x")), delete a.size) : (i = "630x300"),
-        c.push("size=" + i),
-        a.zoom || !1 === a.zoom || (a.zoom = 15);
-      var t = !a.hasOwnProperty("sensor") || !!a.sensor;
-      for (var g in (delete a.sensor, c.push("sensor=" + t), a))
-        a.hasOwnProperty(g) && c.push(g + "=" + a[g]);
-      if (j)
-        for (var d = 0; (b = j[d]); d++) {
-          for (var g in ((x = []),
-          b.size && "normal" !== b.size
-            ? (x.push("size:" + b.size), delete b.size)
-            : b.icon && (x.push("icon:" + encodeURI(b.icon)), delete b.icon),
-          b.color &&
-            (x.push("color:" + b.color.replace("#", "0x")), delete b.color),
-          b.label &&
-            (x.push("label:" + b.label[0].toUpperCase()), delete b.label),
-          (y = b.address ? b.address : b.lat + "," + b.lng),
-          delete b.address,
-          delete b.lat,
-          delete b.lng,
-          b))
-            b.hasOwnProperty(g) && x.push(g + ":" + b[g]);
-          x.length || 0 === d
-            ? (x.push(y), (x = x.join("|")), c.push("markers=" + encodeURI(x)))
-            : ((x = c.pop() + encodeURI("|" + y)), c.push(x));
+        b.push("size=" + i),
+        a.zoom || a.zoom === !1 || (a.zoom = 15);
+      var j = a.hasOwnProperty("sensor") ? !!a.sensor : !0;
+      delete a.sensor, b.push("sensor=" + j);
+      for (var k in a) a.hasOwnProperty(k) && b.push(k + "=" + a[k]);
+      if (e)
+        for (var l, m, n = 0; (c = e[n]); n++) {
+          (l = []),
+            c.size && "normal" !== c.size
+              ? (l.push("size:" + c.size), delete c.size)
+              : c.icon && (l.push("icon:" + encodeURI(c.icon)), delete c.icon),
+            c.color &&
+              (l.push("color:" + c.color.replace("#", "0x")), delete c.color),
+            c.label &&
+              (l.push("label:" + c.label[0].toUpperCase()), delete c.label),
+            (m = c.address ? c.address : c.lat + "," + c.lng),
+            delete c.address,
+            delete c.lat,
+            delete c.lng;
+          for (var k in c) c.hasOwnProperty(k) && l.push(k + ":" + c[k]);
+          l.length || 0 === n
+            ? (l.push(m), (l = l.join("|")), b.push("markers=" + encodeURI(l)))
+            : ((l = b.pop() + encodeURI("|" + m)), b.push(l));
         }
       if (f)
-        for (var d = 0; d < f.length; d++) {
-          var k = [];
-          f[d].featureType &&
-            k.push("feature:" + f[d].featureType.toLowerCase()),
-            f[d].elementType &&
-              k.push("element:" + f[d].elementType.toLowerCase());
-          for (var h = 0; h < f[d].stylers.length; h++)
-            for (var l in f[d].stylers[h]) {
-              var n = f[d].stylers[h][l];
-              ("hue" == l || "color" == l) && (n = "0x" + n.substring(1)),
-                k.push(l + ":" + n);
+        for (var n = 0; n < f.length; n++) {
+          var o = [];
+          f[n].featureType &&
+            o.push("feature:" + f[n].featureType.toLowerCase()),
+            f[n].elementType &&
+              o.push("element:" + f[n].elementType.toLowerCase());
+          for (var p = 0; p < f[n].stylers.length; p++)
+            for (var q in f[n].stylers[p]) {
+              var r = f[n].stylers[p][q];
+              ("hue" == q || "color" == q) && (r = "0x" + r.substring(1)),
+                o.push(q + ":" + r);
             }
-          var p = k.join("|");
-          "" != p && c.push("style=" + p);
+          var s = o.join("|");
+          "" != s && b.push("style=" + s);
         }
-      function q(b, a) {
-        if ("#" === b[0] && ((b = b.replace("#", "0x")), a)) {
-          if (0 === (a = Math.min(1, Math.max((a = parseFloat(a)), 0))))
-            return "0x00000000";
-          1 === (a = (255 * a).toString(16)).length && (a += a),
-            (b = b.slice(0, 8) + a);
-        }
-        return b;
-      }
-      if (e) {
+      if (g) {
         if (
-          ((b = e),
-          (e = []),
-          b.strokeWeight && e.push("weight:" + parseInt(b.strokeWeight, 10)),
-          b.strokeColor)
+          ((c = g),
+          (g = []),
+          c.strokeWeight && g.push("weight:" + parseInt(c.strokeWeight, 10)),
+          c.strokeColor)
         ) {
-          var u = q(b.strokeColor, b.strokeOpacity);
-          e.push("color:" + u);
+          var u = t(c.strokeColor, c.strokeOpacity);
+          g.push("color:" + u);
         }
-        if (b.fillColor) {
-          var v = q(b.fillColor, b.fillOpacity);
-          e.push("fillcolor:" + v);
+        if (c.fillColor) {
+          var v = t(c.fillColor, c.fillOpacity);
+          g.push("fillcolor:" + v);
         }
-        var o = b.path;
-        if (o.join)
-          for (var x, y, r, h = 0; (r = o[h]); h++) e.push(r.join(","));
-        else e.push("enc:" + o);
-        (e = e.join("|")), c.push("path=" + encodeURI(e));
+        var w = c.path;
+        if (w.join) for (var x, p = 0; (x = w[p]); p++) g.push(x.join(","));
+        else g.push("enc:" + w);
+        (g = g.join("|")), b.push("path=" + encodeURI(g));
       }
-      var w = window.devicePixelRatio || 1;
-      return c.push("scale=" + w), m + (c = c.join("&"));
+      var y = window.devicePixelRatio || 1;
+      return b.push("scale=" + y), (b = b.join("&")), d + b;
     }),
-    (a.prototype.addMapType = function (b, a) {
-      if (a.hasOwnProperty("getTileUrl") && "function" == typeof a.getTileUrl) {
-        a.tileSize = a.tileSize || new google.maps.Size(256, 256);
-        var c = new google.maps.ImageMapType(a);
-        this.map.mapTypes.set(b, c);
-      } else throw "'getTileUrl' function required.";
+    (k.prototype.addMapType = function (a, b) {
+      if (!b.hasOwnProperty("getTileUrl") || "function" != typeof b.getTileUrl)
+        throw "'getTileUrl' function required.";
+      b.tileSize = b.tileSize || new google.maps.Size(256, 256);
+      var c = new google.maps.ImageMapType(b);
+      this.map.mapTypes.set(a, c);
     }),
-    (a.prototype.addOverlayMapType = function (a) {
-      if (a.hasOwnProperty("getTile") && "function" == typeof a.getTile) {
-        var b = a.index;
-        delete a.index, this.map.overlayMapTypes.insertAt(b, a);
-      } else throw "'getTile' function required.";
+    (k.prototype.addOverlayMapType = function (a) {
+      if (!a.hasOwnProperty("getTile") || "function" != typeof a.getTile)
+        throw "'getTile' function required.";
+      var b = a.index;
+      delete a.index, this.map.overlayMapTypes.insertAt(b, a);
     }),
-    (a.prototype.removeOverlayMapType = function (a) {
+    (k.prototype.removeOverlayMapType = function (a) {
       this.map.overlayMapTypes.removeAt(a);
     }),
-    (a.prototype.addStyle = function (a) {
+    (k.prototype.addStyle = function (a) {
       var b = new google.maps.StyledMapType(a.styles, {
         name: a.styledMapName,
       });
       this.map.mapTypes.set(a.mapTypeId, b);
     }),
-    (a.prototype.setStyle = function (a) {
+    (k.prototype.setStyle = function (a) {
       this.map.setMapTypeId(a);
     }),
-    (a.prototype.createPanorama = function (b) {
+    (k.prototype.createPanorama = function (a) {
       return (
-        (b.hasOwnProperty("lat") && b.hasOwnProperty("lng")) ||
-          ((b.lat = this.getCenter().lat()), (b.lng = this.getCenter().lng())),
-        (this.panorama = a.createPanorama(b)),
+        (a.hasOwnProperty("lat") && a.hasOwnProperty("lng")) ||
+          ((a.lat = this.getCenter().lat()), (a.lng = this.getCenter().lng())),
+        (this.panorama = k.createPanorama(a)),
         this.map.setStreetView(this.panorama),
         this.panorama
       );
     }),
-    (a.createPanorama = function (a) {
-      var g = l(a.el, a.context);
-      (a.position = new google.maps.LatLng(a.lat, a.lng)),
-        delete a.el,
-        delete a.context,
-        delete a.lat,
-        delete a.lng;
+    (k.createPanorama = function (b) {
+      var c = i(b.el, b.context);
+      (b.position = new google.maps.LatLng(b.lat, b.lng)),
+        delete b.el,
+        delete b.context,
+        delete b.lat,
+        delete b.lng;
       for (
-        var c = [
+        var d = [
             "closeclick",
             "links_changed",
             "pano_changed",
@@ -1364,35 +1361,35 @@
             "resize",
             "visible_changed",
           ],
-          d = f({ visible: !0 }, a),
-          b = 0;
-        b < c.length;
-        b++
+          e = a({ visible: !0 }, b),
+          f = 0;
+        f < d.length;
+        f++
       )
-        delete d[c[b]];
+        delete e[d[f]];
       for (
-        var e = new google.maps.StreetViewPanorama(g, d), b = 0;
-        b < c.length;
-        b++
+        var g = new google.maps.StreetViewPanorama(c, e), f = 0;
+        f < d.length;
+        f++
       )
-        !(function (c, b) {
-          a[b] &&
-            google.maps.event.addListener(c, b, function () {
-              a[b].apply(this);
+        !(function (a, c) {
+          b[c] &&
+            google.maps.event.addListener(a, c, function () {
+              b[c].apply(this);
             });
-        })(e, c[b]);
-      return e;
+        })(g, d[f]);
+      return g;
     }),
-    (a.prototype.on = function (b, c) {
-      return a.on(b, this, c);
+    (k.prototype.on = function (a, b) {
+      return k.on(a, this, b);
     }),
-    (a.prototype.off = function (b) {
-      a.off(b, this);
+    (k.prototype.off = function (a) {
+      k.off(a, this);
     }),
-    (a.prototype.once = function (b, c) {
-      return a.once(b, this, c);
+    (k.prototype.once = function (a, b) {
+      return k.once(a, this, b);
     }),
-    (a.custom_events = [
+    (k.custom_events = [
       "marker_added",
       "marker_removed",
       "polyline_added",
@@ -1402,45 +1399,44 @@
       "geolocated",
       "geolocation_failed",
     ]),
-    (a.on = function (c, b, d) {
-      if (-1 == a.custom_events.indexOf(c))
+    (k.on = function (a, b, c) {
+      if (-1 == k.custom_events.indexOf(a))
         return (
-          b instanceof a && (b = b.map), google.maps.event.addListener(b, c, d)
+          b instanceof k && (b = b.map), google.maps.event.addListener(b, a, c)
         );
-      var e = { handler: d, eventName: c };
+      var d = { handler: c, eventName: a };
       return (
-        (b.registered_events[c] = b.registered_events[c] || []),
-        b.registered_events[c].push(e),
-        e
+        (b.registered_events[a] = b.registered_events[a] || []),
+        b.registered_events[a].push(d),
+        d
       );
     }),
-    (a.off = function (c, b) {
-      -1 == a.custom_events.indexOf(c)
-        ? (b instanceof a && (b = b.map),
-          google.maps.event.clearListeners(b, c))
-        : (b.registered_events[c] = []);
+    (k.off = function (a, b) {
+      -1 == k.custom_events.indexOf(a)
+        ? (b instanceof k && (b = b.map),
+          google.maps.event.clearListeners(b, a))
+        : (b.registered_events[a] = []);
     }),
-    (a.once = function (c, b, d) {
-      if (-1 == a.custom_events.indexOf(c))
-        return (
-          b instanceof a && (b = b.map),
-          google.maps.event.addListenerOnce(b, c, d)
-        );
+    (k.once = function (a, b, c) {
+      return -1 == k.custom_events.indexOf(a)
+        ? (b instanceof k && (b = b.map),
+          google.maps.event.addListenerOnce(b, a, c))
+        : void 0;
     }),
-    (a.fire = function (b, e, c) {
-      if (-1 == a.custom_events.indexOf(b))
+    (k.fire = function (a, b, c) {
+      if (-1 == k.custom_events.indexOf(a))
         google.maps.event.trigger(
-          e,
           b,
+          a,
           Array.prototype.slice.apply(arguments).slice(2)
         );
-      else if (b in c.registered_events)
-        for (var f = c.registered_events[b], d = 0; d < f.length; d++)
+      else if (a in c.registered_events)
+        for (var d = c.registered_events[a], e = 0; e < d.length; e++)
           !(function (a, b, c) {
             a.apply(b, [c]);
-          })(f[d].handler, c, e);
+          })(d[e].handler, c, b);
     }),
-    (a.geolocate = function (a) {
+    (k.geolocate = function (a) {
       var b = a.always || a.complete;
       navigator.geolocation
         ? navigator.geolocation.getCurrentPosition(
@@ -1454,7 +1450,7 @@
           )
         : (a.not_supported(), b && b());
     }),
-    (a.geocode = function (a) {
+    (k.geocode = function (a) {
       this.geocoder = new google.maps.Geocoder();
       var b = a.callback;
       a.hasOwnProperty("lat") &&
@@ -1467,58 +1463,57 @@
           b(a, c);
         });
     }),
-    "object" == typeof window.google &&
+    "object" === typeof window.google &&
       window.google.maps &&
       (google.maps.Polygon.prototype.getBounds ||
-        (google.maps.Polygon.prototype.getBounds = function (f) {
+        (google.maps.Polygon.prototype.getBounds = function () {
           for (
-            var a,
-              d = new google.maps.LatLngBounds(),
-              e = this.getPaths(),
-              b = 0;
-            b < e.getLength();
-            b++
+            var d,
+              b = new google.maps.LatLngBounds(),
+              c = this.getPaths(),
+              e = 0;
+            e < c.getLength();
+            e++
           ) {
-            a = e.getAt(b);
-            for (var c = 0; c < a.getLength(); c++) d.extend(a.getAt(c));
+            d = c.getAt(e);
+            for (var f = 0; f < d.getLength(); f++) b.extend(d.getAt(f));
           }
-          return d;
+          return b;
         }),
       google.maps.Polygon.prototype.containsLatLng ||
         (google.maps.Polygon.prototype.containsLatLng = function (a) {
-          var h = this.getBounds();
-          if (null !== h && !h.contains(a)) return !1;
-          for (var e = !1, k = this.getPaths().getLength(), f = 0; f < k; f++)
+          var b = this.getBounds();
+          if (null !== b && !b.contains(a)) return !1;
+          for (var c = !1, d = this.getPaths().getLength(), e = 0; e < d; e++)
             for (
-              var g = this.getPaths().getAt(f),
-                i = g.getLength(),
-                j = i - 1,
-                c = 0;
-              c < i;
-              c++
+              var f = this.getPaths().getAt(e),
+                g = f.getLength(),
+                h = g - 1,
+                i = 0;
+              i < g;
+              i++
             ) {
-              var b = g.getAt(c),
-                d = g.getAt(j);
-              ((b.lng() < a.lng() && d.lng() >= a.lng()) ||
-                (d.lng() < a.lng() && b.lng() >= a.lng())) &&
-                b.lat() +
-                  ((a.lng() - b.lng()) / (d.lng() - b.lng())) *
-                    (d.lat() - b.lat()) <
+              var j = f.getAt(i),
+                k = f.getAt(h);
+              ((j.lng() < a.lng() && k.lng() >= a.lng()) ||
+                (k.lng() < a.lng() && j.lng() >= a.lng())) &&
+                j.lat() +
+                  ((a.lng() - j.lng()) / (k.lng() - j.lng())) *
+                    (k.lat() - j.lat()) <
                   a.lat() &&
-                (e = !e),
-                (j = c);
+                (c = !c),
+                (h = i);
             }
-          return e;
+          return c;
         }),
       google.maps.Circle.prototype.containsLatLng ||
         (google.maps.Circle.prototype.containsLatLng = function (a) {
-          return (
-            !google.maps.geometry ||
-            google.maps.geometry.spherical.computeDistanceBetween(
-              this.getCenter(),
-              a
-            ) <= this.getRadius()
-          );
+          return google.maps.geometry
+            ? google.maps.geometry.spherical.computeDistanceBetween(
+                this.getCenter(),
+                a
+              ) <= this.getRadius()
+            : !0;
         }),
       (google.maps.Rectangle.prototype.containsLatLng = function (a) {
         return this.getBounds().contains(a);
@@ -1533,31 +1528,31 @@
         this.fences.push(a);
       }),
       (google.maps.Marker.prototype.getId = function () {
-        return this["__gm_id"];
+        return this.__gm_id;
       })),
     Array.prototype.indexOf ||
-      (Array.prototype.indexOf = function (e) {
-        if (this == null) throw new TypeError();
-        var d = Object(this),
-          c = d.length >>> 0;
+      (Array.prototype.indexOf = function (a) {
+        if (null == this) throw new TypeError();
+        var b = Object(this),
+          c = b.length >>> 0;
         if (0 === c) return -1;
-        var a = 0;
+        var d = 0;
         if (
           (arguments.length > 1 &&
-            ((a = Number(arguments[1])),
-            a != a
-              ? (a = 0)
-              : 0 != a &&
-                a != 1 / 0 &&
-                a != -1 / 0 &&
-                (a = (a > 0 || -1) * Math.floor(Math.abs(a)))),
-          a >= c)
+            ((d = Number(arguments[1])),
+            d != d
+              ? (d = 0)
+              : 0 != d &&
+                1 / 0 != d &&
+                d != -1 / 0 &&
+                (d = (d > 0 || -1) * Math.floor(Math.abs(d)))),
+          d >= c)
         )
           return -1;
-        for (var b = a >= 0 ? a : Math.max(c - Math.abs(a), 0); b < c; b++)
-          if (b in d && d[b] === e) return b;
+        for (var e = d >= 0 ? d : Math.max(c - Math.abs(d), 0); e < c; e++)
+          if (e in b && b[e] === a) return e;
         return -1;
       }),
-    a
+    k
   );
 });

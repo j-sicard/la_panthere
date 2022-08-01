@@ -1,6 +1,6 @@
-!(function ($) {
-  var a = [],
-    b = {
+!(function (a) {
+  var e = [],
+    t = {
       options: {
         prependExistingHelpBlock: !1,
         sniffHtml: !0,
@@ -14,433 +14,452 @@
         },
       },
       methods: {
-        init: function (f) {
-          var e = $.extend(!0, {}, b);
-          e.options = $.extend(!0, e.options, f);
-          var g = $.unique(
+        init: function (o) {
+          var r = a.extend(!0, {}, t);
+          r.options = a.extend(!0, r.options, o);
+          var l = a.unique(
             this.map(function () {
-              return $(this).parents("form")[0];
+              return a(this).parents("form")[0];
             }).toArray()
           );
           return (
-            $(g).bind("submit", function (c) {
-              var a = $(this),
-                d = 0,
-                b = a
+            a(l).bind("submit", function (e) {
+              var t = a(this),
+                i = 0,
+                n = t
                   .find("input,textarea,select")
                   .not("[type=submit],[type=image]")
-                  .filter(e.options.filter);
-              b
+                  .filter(r.options.filter);
+              n
                 .trigger("submit.validation")
                 .trigger("validationLostFocus.validation"),
-                b.each(function (c, b) {
-                  var a = $(b).parents(".form-group, .checkbox").first();
-                  a.hasClass("warning") &&
-                    (a.removeClass("warning").addClass("error"), d++);
+                n.each(function (e, t) {
+                  var n = a(t).parents(".form-group, .checkbox").first();
+                  n.hasClass("warning") &&
+                    (n.removeClass("warning").addClass("error"), i++);
                 }),
-                b.trigger("validationLostFocus.validation"),
-                d
-                  ? (e.options.preventSubmit && c.preventDefault(),
-                    a.addClass("error"),
-                    $.isFunction(e.options.submitError) &&
-                      e.options.submitError(
-                        a,
-                        c,
-                        b.jqBootstrapValidation("collectErrors", !0)
+                n.trigger("validationLostFocus.validation"),
+                i
+                  ? (r.options.preventSubmit && e.preventDefault(),
+                    t.addClass("error"),
+                    a.isFunction(r.options.submitError) &&
+                      r.options.submitError(
+                        t,
+                        e,
+                        n.jqBootstrapValidation("collectErrors", !0)
                       ))
-                  : (a.removeClass("error"),
-                    $.isFunction(e.options.submitSuccess) &&
-                      e.options.submitSuccess(a, c));
+                  : (t.removeClass("error"),
+                    a.isFunction(r.options.submitSuccess) &&
+                      r.options.submitSuccess(t, e));
             }),
             this.each(function () {
-              var b = $(this),
-                h = b.parents(".form-group, .checkbox").first(),
-                g = h.find(".help-block").first(),
-                n = b.parents("form").first(),
-                i = [];
+              var t = a(this),
+                o = t.parents(".form-group, .checkbox").first(),
+                l = o.find(".help-block").first(),
+                s = t.parents("form").first(),
+                d = [];
               if (
-                (!g.length &&
-                  e.options.autoAdd &&
-                  e.options.autoAdd.helpBlocks &&
-                  ((g = $('<div class="help-block" />')),
-                  h.append(g),
-                  a.push(g[0])),
-                e.options.sniffHtml)
+                (!l.length &&
+                  r.options.autoAdd &&
+                  r.options.autoAdd.helpBlocks &&
+                  ((l = a('<div class="help-block" />')),
+                  o.append(l),
+                  e.push(l[0])),
+                r.options.sniffHtml)
               ) {
-                var f = "";
+                var c = "";
                 if (
-                  (void 0 !== b.attr("pattern") &&
-                    ((f =
-                      "Not in the expected format<!-- data-validation-pattern-message to override -->"),
-                    b.data("validationPatternMessage") &&
-                      (f = b.data("validationPatternMessage")),
-                    b.data("validationPatternMessage", f),
-                    b.data("validationPatternRegex", b.attr("pattern"))),
-                  void 0 !== b.attr("max") ||
-                    void 0 !== b.attr("aria-valuemax"))
+                  (void 0 !== t.attr("pattern") &&
+                    ((c =
+                      "Not in the expected format\x3c!-- data-validation-pattern-message to override --\x3e"),
+                    t.data("validationPatternMessage") &&
+                      (c = t.data("validationPatternMessage")),
+                    t.data("validationPatternMessage", c),
+                    t.data("validationPatternRegex", t.attr("pattern"))),
+                  void 0 !== t.attr("max") ||
+                    void 0 !== t.attr("aria-valuemax"))
                 ) {
-                  var k =
-                    void 0 !== b.attr("max")
-                      ? b.attr("max")
-                      : b.attr("aria-valuemax");
-                  (f =
+                  var v =
+                    void 0 !== t.attr("max")
+                      ? t.attr("max")
+                      : t.attr("aria-valuemax");
+                  (c =
                     "Too high: Maximum of '" +
-                    k +
-                    "'<!-- data-validation-max-message to override -->"),
-                    b.data("validationMaxMessage") &&
-                      (f = b.data("validationMaxMessage")),
-                    b.data("validationMaxMessage", f),
-                    b.data("validationMaxMax", k);
+                    v +
+                    "'\x3c!-- data-validation-max-message to override --\x3e"),
+                    t.data("validationMaxMessage") &&
+                      (c = t.data("validationMaxMessage")),
+                    t.data("validationMaxMessage", c),
+                    t.data("validationMaxMax", v);
                 }
                 if (
-                  void 0 !== b.attr("min") ||
-                  void 0 !== b.attr("aria-valuemin")
+                  void 0 !== t.attr("min") ||
+                  void 0 !== t.attr("aria-valuemin")
                 ) {
-                  var l =
-                    void 0 !== b.attr("min")
-                      ? b.attr("min")
-                      : b.attr("aria-valuemin");
-                  (f =
+                  var m =
+                    void 0 !== t.attr("min")
+                      ? t.attr("min")
+                      : t.attr("aria-valuemin");
+                  (c =
                     "Too low: Minimum of '" +
-                    l +
-                    "'<!-- data-validation-min-message to override -->"),
-                    b.data("validationMinMessage") &&
-                      (f = b.data("validationMinMessage")),
-                    b.data("validationMinMessage", f),
-                    b.data("validationMinMin", l);
+                    m +
+                    "'\x3c!-- data-validation-min-message to override --\x3e"),
+                    t.data("validationMinMessage") &&
+                      (c = t.data("validationMinMessage")),
+                    t.data("validationMinMessage", c),
+                    t.data("validationMinMin", m);
                 }
-                void 0 !== b.attr("maxlength") &&
-                  ((f =
+                void 0 !== t.attr("maxlength") &&
+                  ((c =
                     "Too long: Maximum of '" +
-                    b.attr("maxlength") +
-                    "' characters<!-- data-validation-maxlength-message to override -->"),
-                  b.data("validationMaxlengthMessage") &&
-                    (f = b.data("validationMaxlengthMessage")),
-                  b.data("validationMaxlengthMessage", f),
-                  b.data("validationMaxlengthMaxlength", b.attr("maxlength"))),
-                  void 0 !== b.attr("minlength") &&
-                    ((f =
+                    t.attr("maxlength") +
+                    "' characters\x3c!-- data-validation-maxlength-message to override --\x3e"),
+                  t.data("validationMaxlengthMessage") &&
+                    (c = t.data("validationMaxlengthMessage")),
+                  t.data("validationMaxlengthMessage", c),
+                  t.data("validationMaxlengthMaxlength", t.attr("maxlength"))),
+                  void 0 !== t.attr("minlength") &&
+                    ((c =
                       "Too short: Minimum of '" +
-                      b.attr("minlength") +
-                      "' characters<!-- data-validation-minlength-message to override -->"),
-                    b.data("validationMinlengthMessage") &&
-                      (f = b.data("validationMinlengthMessage")),
-                    b.data("validationMinlengthMessage", f),
-                    b.data(
+                      t.attr("minlength") +
+                      "' characters\x3c!-- data-validation-minlength-message to override --\x3e"),
+                    t.data("validationMinlengthMessage") &&
+                      (c = t.data("validationMinlengthMessage")),
+                    t.data("validationMinlengthMessage", c),
+                    t.data(
                       "validationMinlengthMinlength",
-                      b.attr("minlength")
+                      t.attr("minlength")
                     )),
-                  (void 0 !== b.attr("required") ||
-                    void 0 !== b.attr("aria-required")) &&
-                    ((f = e.builtInValidators.required.message),
-                    b.data("validationRequiredMessage") &&
-                      (f = b.data("validationRequiredMessage")),
-                    b.data("validationRequiredMessage", f)),
-                  void 0 !== b.attr("type") &&
-                    "number" === b.attr("type").toLowerCase() &&
-                    ((f = e.builtInValidators.number.message),
-                    b.data("validationNumberMessage") &&
-                      (f = b.data("validationNumberMessage")),
-                    b.data("validationNumberMessage", f)),
-                  void 0 !== b.attr("type") &&
-                    "email" === b.attr("type").toLowerCase() &&
-                    ((f =
-                      "Not a valid email address<!-- data-validator-validemail-message to override -->"),
-                    b.data("validationValidemailMessage")
-                      ? (f = b.data("validationValidemailMessage"))
-                      : b.data("validationEmailMessage") &&
-                        (f = b.data("validationEmailMessage")),
-                    b.data("validationValidemailMessage", f)),
-                  void 0 !== b.attr("minchecked") &&
-                    ((f =
+                  (void 0 === t.attr("required") &&
+                    void 0 === t.attr("aria-required")) ||
+                    ((c = r.builtInValidators.required.message),
+                    t.data("validationRequiredMessage") &&
+                      (c = t.data("validationRequiredMessage")),
+                    t.data("validationRequiredMessage", c)),
+                  void 0 !== t.attr("type") &&
+                    "number" === t.attr("type").toLowerCase() &&
+                    ((c = r.builtInValidators.number.message),
+                    t.data("validationNumberMessage") &&
+                      (c = t.data("validationNumberMessage")),
+                    t.data("validationNumberMessage", c)),
+                  void 0 !== t.attr("type") &&
+                    "email" === t.attr("type").toLowerCase() &&
+                    ((c =
+                      "Not a valid email address\x3c!-- data-validator-validemail-message to override --\x3e"),
+                    t.data("validationValidemailMessage")
+                      ? (c = t.data("validationValidemailMessage"))
+                      : t.data("validationEmailMessage") &&
+                        (c = t.data("validationEmailMessage")),
+                    t.data("validationValidemailMessage", c)),
+                  void 0 !== t.attr("minchecked") &&
+                    ((c =
                       "Not enough options checked; Minimum of '" +
-                      b.attr("minchecked") +
-                      "' required<!-- data-validation-minchecked-message to override -->"),
-                    b.data("validationMincheckedMessage") &&
-                      (f = b.data("validationMincheckedMessage")),
-                    b.data("validationMincheckedMessage", f),
-                    b.data(
+                      t.attr("minchecked") +
+                      "' required\x3c!-- data-validation-minchecked-message to override --\x3e"),
+                    t.data("validationMincheckedMessage") &&
+                      (c = t.data("validationMincheckedMessage")),
+                    t.data("validationMincheckedMessage", c),
+                    t.data(
                       "validationMincheckedMinchecked",
-                      b.attr("minchecked")
+                      t.attr("minchecked")
                     )),
-                  void 0 !== b.attr("maxchecked") &&
-                    ((f =
+                  void 0 !== t.attr("maxchecked") &&
+                    ((c =
                       "Too many options checked; Maximum of '" +
-                      b.attr("maxchecked") +
-                      "' required<!-- data-validation-maxchecked-message to override -->"),
-                    b.data("validationMaxcheckedMessage") &&
-                      (f = b.data("validationMaxcheckedMessage")),
-                    b.data("validationMaxcheckedMessage", f),
-                    b.data(
+                      t.attr("maxchecked") +
+                      "' required\x3c!-- data-validation-maxchecked-message to override --\x3e"),
+                    t.data("validationMaxcheckedMessage") &&
+                      (c = t.data("validationMaxcheckedMessage")),
+                    t.data("validationMaxcheckedMessage", c),
+                    t.data(
                       "validationMaxcheckedMaxchecked",
-                      b.attr("maxchecked")
+                      t.attr("maxchecked")
                     ));
               }
-              void 0 !== b.data("validation") &&
-                (i = b.data("validation").split(",")),
-                $.each(b.data(), function (b, c) {
-                  var a = b.replace(/([A-Z])/g, ",$1").split(",");
-                  "validation" === a[0] && a[1] && i.push(a[1]);
+              void 0 !== t.data("validation") &&
+                (d = t.data("validation").split(",")),
+                a.each(t.data(), function (a, e) {
+                  var t = a.replace(/([A-Z])/g, ",$1").split(",");
+                  "validation" === t[0] && t[1] && d.push(t[1]);
                 });
-              var j = i,
-                m = [];
-              do
-                $.each(i, function (a, b) {
-                  i[a] = c(b);
+              var u = d,
+                g = [];
+              do {
+                a.each(d, function (a, e) {
+                  d[a] = i(e);
                 }),
-                  (i = $.unique(i)),
-                  (m = []),
-                  $.each(j, function (f, a) {
-                    if (void 0 !== b.data("validation" + a + "Shortcut"))
-                      $.each(
-                        b.data("validation" + a + "Shortcut").split(","),
-                        function (b, a) {
-                          m.push(a);
+                  (d = a.unique(d)),
+                  (g = []),
+                  a.each(u, function (e, n) {
+                    if (void 0 !== t.data("validation" + n + "Shortcut"))
+                      a.each(
+                        t.data("validation" + n + "Shortcut").split(","),
+                        function (a, e) {
+                          g.push(e);
                         }
                       );
-                    else if (e.builtInValidators[a.toLowerCase()]) {
-                      var d = e.builtInValidators[a.toLowerCase()];
-                      "shortcut" === d.type.toLowerCase() &&
-                        $.each(d.shortcut.split(","), function (b, a) {
-                          (a = c(a)), m.push(a), i.push(a);
+                    else if (r.builtInValidators[n.toLowerCase()]) {
+                      var o = r.builtInValidators[n.toLowerCase()];
+                      "shortcut" === o.type.toLowerCase() &&
+                        a.each(o.shortcut.split(","), function (a, e) {
+                          (e = i(e)), g.push(e), d.push(e);
                         });
                     }
                   }),
-                  (j = m);
-              while (j.length > 0);
-              var o = {};
-              $.each(i, function (j, a) {
-                var d = b.data("validation" + a + "Message"),
-                  h = void 0 !== d,
-                  f = !1;
+                  (u = g);
+              } while (u.length > 0);
+              var h = {};
+              a.each(d, function (e, n) {
+                var o = t.data("validation" + n + "Message"),
+                  l = void 0 !== o,
+                  s = !1;
                 if (
-                  ((d =
-                    d ||
+                  ((o =
+                    o ||
                     "'" +
-                      a +
-                      "' validation failed <!-- Add attribute 'data-validation-" +
-                      a.toLowerCase() +
-                      "-message' to input to change this message -->"),
-                  $.each(e.validatorTypes, function (e, g) {
-                    void 0 === o[e] && (o[e] = []),
-                      f ||
-                        void 0 === b.data("validation" + a + c(g.name)) ||
-                        (o[e].push(
-                          $.extend(
+                      n +
+                      "' validation failed \x3c!-- Add attribute 'data-validation-" +
+                      n.toLowerCase() +
+                      "-message' to input to change this message --\x3e"),
+                  a.each(r.validatorTypes, function (e, r) {
+                    void 0 === h[e] && (h[e] = []),
+                      s ||
+                        void 0 === t.data("validation" + n + i(r.name)) ||
+                        (h[e].push(
+                          a.extend(
                             !0,
-                            { name: c(g.name), message: d },
-                            g.init(b, a)
+                            { name: i(r.name), message: o },
+                            r.init(t, n)
                           )
                         ),
-                        (f = !0));
+                        (s = !0));
                   }),
-                  !f && e.builtInValidators[a.toLowerCase()])
+                  !s && r.builtInValidators[n.toLowerCase()])
                 ) {
-                  var g = $.extend(
+                  var d = a.extend(
                     !0,
                     {},
-                    e.builtInValidators[a.toLowerCase()]
+                    r.builtInValidators[n.toLowerCase()]
                   );
-                  h && (g.message = d);
-                  var i = g.type.toLowerCase();
-                  "shortcut" === i
-                    ? (f = !0)
-                    : $.each(e.validatorTypes, function (d, e) {
-                        void 0 === o[d] && (o[d] = []),
-                          f ||
-                            i !== d.toLowerCase() ||
-                            (b.data(
-                              "validation" + a + c(e.name),
-                              g[e.name.toLowerCase()]
+                  l && (d.message = o);
+                  var c = d.type.toLowerCase();
+                  "shortcut" === c
+                    ? (s = !0)
+                    : a.each(r.validatorTypes, function (e, o) {
+                        void 0 === h[e] && (h[e] = []),
+                          s ||
+                            c !== e.toLowerCase() ||
+                            (t.data(
+                              "validation" + n + i(o.name),
+                              d[o.name.toLowerCase()]
                             ),
-                            o[i].push($.extend(g, e.init(b, a))),
-                            (f = !0));
+                            h[c].push(a.extend(d, o.init(t, n))),
+                            (s = !0));
                       });
                 }
-                f || $.error("Cannot find validation info for '" + a + "'");
+                s || a.error("Cannot find validation info for '" + n + "'");
               }),
-                g.data(
+                l.data(
                   "original-contents",
-                  g.data("original-contents")
-                    ? g.data("original-contents")
-                    : g.html()
+                  l.data("original-contents")
+                    ? l.data("original-contents")
+                    : l.html()
                 ),
-                g.data(
+                l.data(
                   "original-role",
-                  g.data("original-role")
-                    ? g.data("original-role")
-                    : g.attr("role")
+                  l.data("original-role")
+                    ? l.data("original-role")
+                    : l.attr("role")
                 ),
-                h.data(
+                o.data(
                   "original-classes",
-                  h.data("original-clases")
-                    ? h.data("original-classes")
-                    : h.attr("class")
+                  o.data("original-clases")
+                    ? o.data("original-classes")
+                    : o.attr("class")
                 ),
-                b.data(
+                t.data(
                   "original-aria-invalid",
-                  b.data("original-aria-invalid")
-                    ? b.data("original-aria-invalid")
-                    : b.attr("aria-invalid")
+                  t.data("original-aria-invalid")
+                    ? t.data("original-aria-invalid")
+                    : t.attr("aria-invalid")
                 ),
-                b.bind("validation.validation", function (c, f) {
-                  var g = d(b),
-                    a = [];
+                t.bind("validation.validation", function (e, i) {
+                  var o = n(t),
+                    l = [];
                   return (
-                    $.each(o, function (c, d) {
-                      (g ||
-                        g.length ||
-                        (f && f.includeEmpty) ||
-                        (e.validatorTypes[c].blockSubmit &&
-                          f &&
-                          f.submitting)) &&
-                        $.each(d, function (f, d) {
-                          e.validatorTypes[c].validate(b, g, d) &&
-                            a.push(d.message);
+                    a.each(h, function (e, n) {
+                      (o ||
+                        o.length ||
+                        (i && i.includeEmpty) ||
+                        (r.validatorTypes[e].blockSubmit &&
+                          i &&
+                          i.submitting)) &&
+                        a.each(n, function (a, i) {
+                          r.validatorTypes[e].validate(t, o, i) &&
+                            l.push(i.message);
                         });
                     }),
-                    a
+                    l
                   );
                 }),
-                b.bind("getValidators.validation", function () {
-                  return o;
+                t.bind("getValidators.validation", function () {
+                  return h;
                 }),
-                b.bind("submit.validation", function () {
-                  return b.triggerHandler("change.validation", {
+                t.bind("submit.validation", function () {
+                  return t.triggerHandler("change.validation", {
                     submitting: !0,
                   });
                 }),
-                b.bind(
-                  "keyup.validation focus.validation blur.validation click.validation keydown.validation keypress.validation change.validation",
-                  function (c, i) {
-                    var f = d(b),
-                      a = [];
-                    h.find("input,textarea,select").each(function (f, c) {
-                      var e = a.length;
+                t.bind(
+                  [
+                    "keyup",
+                    "focus",
+                    "blur",
+                    "click",
+                    "keydown",
+                    "keypress",
+                    "change",
+                  ].join(".validation ") + ".validation",
+                  function (e, i) {
+                    var d = n(t),
+                      c = [];
+                    o.find("input,textarea,select").each(function (e, n) {
+                      var o = c.length;
                       if (
-                        ($.each(
-                          $(c).triggerHandler("validation.validation", i),
-                          function (c, b) {
-                            a.push(b);
+                        (a.each(
+                          a(n).triggerHandler("validation.validation", i),
+                          function (a, e) {
+                            c.push(e);
                           }
                         ),
-                        a.length > e)
+                        c.length > o)
                       )
-                        $(c).attr("aria-invalid", "true");
+                        a(n).attr("aria-invalid", "true");
                       else {
-                        var d = b.data("original-aria-invalid");
-                        $(c).attr("aria-invalid", void 0 !== d && d);
+                        var r = t.data("original-aria-invalid");
+                        a(n).attr("aria-invalid", void 0 !== r && r);
                       }
                     }),
-                      n
+                      s
                         .find("input,select,textarea")
-                        .not(b)
-                        .not('[name="' + b.attr("name") + '"]')
+                        .not(t)
+                        .not('[name="' + t.attr("name") + '"]')
                         .trigger("validationLostFocus.validation"),
-                      (a = $.unique(a.sort())).length
-                        ? (h.removeClass("success error").addClass("warning"),
-                          e.options.semanticallyStrict && 1 === a.length
-                            ? g.html(
-                                a[0] +
-                                  (e.options.prependExistingHelpBlock
-                                    ? g.data("original-contents")
+                      (c = a.unique(c.sort())).length
+                        ? (o.removeClass("success error").addClass("warning"),
+                          r.options.semanticallyStrict && 1 === c.length
+                            ? l.html(
+                                c[0] +
+                                  (r.options.prependExistingHelpBlock
+                                    ? l.data("original-contents")
                                     : "")
                               )
-                            : g.html(
+                            : l.html(
                                 '<ul class="list-unstyled alert alert-warning" role="alert"><li>' +
-                                  a.join("</li><li>") +
+                                  c.join("</li><li>") +
                                   "</li></ul>" +
-                                  (e.options.prependExistingHelpBlock
-                                    ? g.data("original-contents")
+                                  (r.options.prependExistingHelpBlock
+                                    ? l.data("original-contents")
                                     : "")
                               ))
-                        : (h.removeClass("warning error success"),
-                          f.length > 0 && h.addClass("success"),
-                          g.html(g.data("original-contents"))),
-                      "blur" === c.type && h.removeClass("success");
+                        : (o.removeClass("warning error success"),
+                          d.length > 0 && o.addClass("success"),
+                          l.html(l.data("original-contents"))),
+                      "blur" === e.type && o.removeClass("success");
                   }
                 ),
-                b.bind("validationLostFocus.validation", function () {
-                  h.removeClass("success");
+                t.bind("validationLostFocus.validation", function () {
+                  o.removeClass("success");
                 });
             })
           );
         },
         destroy: function () {
           return this.each(function () {
-            var b = $(this),
-              d = b.parents(".form-group, .checkbox").first(),
-              c = d.find(".help-block").first();
-            b.unbind(".validation"),
-              c.html(c.data("original-contents")),
-              d.attr("class", d.data("original-classes")),
-              b.attr("aria-invalid", b.data("original-aria-invalid")),
-              c.attr("role", b.data("original-role")),
-              a.indexOf(c[0]) > -1 && c.remove();
+            var t = a(this),
+              i = t.parents(".form-group, .checkbox").first(),
+              n = i.find(".help-block").first();
+            t.unbind(".validation"),
+              n.html(n.data("original-contents")),
+              i.attr("class", i.data("original-classes")),
+              t.attr("aria-invalid", t.data("original-aria-invalid")),
+              n.attr("role", t.data("original-role")),
+              e.indexOf(n[0]) > -1 && n.remove();
           });
         },
-        collectErrors: function (b) {
-          var a = {};
+        collectErrors: function (e) {
+          var t = {};
           return (
-            this.each(function (f, d) {
-              var b = $(d),
-                c = b.attr("name"),
-                e = b.triggerHandler("validation.validation", {
+            this.each(function (e, i) {
+              var n = a(i),
+                o = n.attr("name"),
+                r = n.triggerHandler("validation.validation", {
                   includeEmpty: !0,
                 });
-              a[c] = $.extend(!0, e, a[c]);
+              t[o] = a.extend(!0, r, t[o]);
             }),
-            $.each(a, function (b, c) {
-              0 === c.length && delete a[b];
+            a.each(t, function (a, e) {
+              0 === e.length && delete t[a];
             }),
-            a
+            t
           );
         },
         hasErrors: function () {
-          var a = [];
+          var e = [];
           return (
-            this.each(function (c, b) {
-              a = a.concat(
-                $(b).triggerHandler("getValidators.validation")
-                  ? $(b).triggerHandler("validation.validation", {
+            this.each(function (t, i) {
+              e = e.concat(
+                a(i).triggerHandler("getValidators.validation")
+                  ? a(i).triggerHandler("validation.validation", {
                       submitting: !0,
                     })
                   : []
               );
             }),
-            a.length > 0
+            e.length > 0
           );
         },
-        override: function (a) {
-          b = $.extend(!0, b, a);
+        override: function (e) {
+          t = a.extend(!0, t, e);
         },
       },
       validatorTypes: {
         callback: {
           name: "callback",
-          init: function (a, b) {
+          init: function (a, e) {
             return {
-              validatorName: b,
-              callback: a.data("validation" + b + "Callback"),
+              validatorName: e,
+              callback: a.data("validation" + e + "Callback"),
               lastValue: a.val(),
               lastValid: !0,
               lastFinished: !0,
             };
           },
-          validate: function (c, b, a) {
-            if (a.lastValue === b && a.lastFinished) return !a.lastValid;
-            if (!0 === a.lastFinished) {
-              (a.lastValue = b), (a.lastValid = !0), (a.lastFinished = !1);
-              var d = a,
-                e = c;
-              f(a.callback, window, c, b, function (a) {
-                d.lastValue === a.value &&
-                  ((d.lastValid = a.valid),
-                  a.message && (d.message = a.message),
-                  (d.lastFinished = !0),
-                  e.data("validation" + d.validatorName + "Message", d.message),
+          validate: function (a, e, t) {
+            if (t.lastValue === e && t.lastFinished) return !t.lastValid;
+            if (!0 === t.lastFinished) {
+              (t.lastValue = e), (t.lastValid = !0), (t.lastFinished = !1);
+              var i = t,
+                n = a;
+              !(function (a, e) {
+                for (
+                  var t = Array.prototype.slice.call(arguments).splice(2),
+                    i = a.split("."),
+                    n = i.pop(),
+                    o = 0;
+                  o < i.length;
+                  o++
+                )
+                  e = e[i[o]];
+                e[n].apply(this, t);
+              })(t.callback, window, a, e, function (a) {
+                i.lastValue === a.value &&
+                  ((i.lastValid = a.valid),
+                  a.message && (i.message = a.message),
+                  (i.lastFinished = !0),
+                  n.data("validation" + i.validatorName + "Message", i.message),
                   setTimeout(function () {
-                    e.trigger("change.validation");
+                    n.trigger("change.validation");
                   }, 1));
               });
             }
@@ -449,49 +468,49 @@
         },
         ajax: {
           name: "ajax",
-          init: function (a, b) {
+          init: function (a, e) {
             return {
-              validatorName: b,
-              url: a.data("validation" + b + "Ajax"),
+              validatorName: e,
+              url: a.data("validation" + e + "Ajax"),
               lastValue: a.val(),
               lastValid: !0,
               lastFinished: !0,
             };
           },
-          validate: function (c, b, a) {
-            return "" + a.lastValue == "" + b && !0 === a.lastFinished
-              ? !1 === a.lastValid
-              : (!0 === a.lastFinished &&
-                  ((a.lastValue = b),
-                  (a.lastValid = !0),
-                  (a.lastFinished = !1),
-                  $.ajax({
-                    url: a.url,
-                    data: "value=" + b + "&field=" + c.attr("name"),
+          validate: function (e, t, i) {
+            return "" + i.lastValue == "" + t && !0 === i.lastFinished
+              ? !1 === i.lastValid
+              : (!0 === i.lastFinished &&
+                  ((i.lastValue = t),
+                  (i.lastValid = !0),
+                  (i.lastFinished = !1),
+                  a.ajax({
+                    url: i.url,
+                    data: "value=" + t + "&field=" + e.attr("name"),
                     dataType: "json",
-                    success: function (b) {
-                      "" + a.lastValue == "" + b.value &&
-                        ((a.lastValid = !!b.valid),
-                        b.message && (a.message = b.message),
-                        (a.lastFinished = !0),
-                        c.data(
-                          "validation" + a.validatorName + "Message",
-                          a.message
+                    success: function (a) {
+                      "" + i.lastValue == "" + a.value &&
+                        ((i.lastValid = !!a.valid),
+                        a.message && (i.message = a.message),
+                        (i.lastFinished = !0),
+                        e.data(
+                          "validation" + i.validatorName + "Message",
+                          i.message
                         ),
                         setTimeout(function () {
-                          c.trigger("change.validation");
+                          e.trigger("change.validation");
                         }, 1));
                     },
                     failure: function () {
-                      (a.lastValid = !0),
-                        (a.message = "ajax call failed"),
-                        (a.lastFinished = !0),
-                        c.data(
-                          "validation" + a.validatorName + "Message",
-                          a.message
+                      (i.lastValid = !0),
+                        (i.message = "ajax call failed"),
+                        (i.lastFinished = !0),
+                        e.data(
+                          "validation" + i.validatorName + "Message",
+                          i.message
                         ),
                         setTimeout(function () {
-                          c.trigger("change.validation");
+                          e.trigger("change.validation");
                         }, 1);
                     },
                   })),
@@ -500,150 +519,154 @@
         },
         regex: {
           name: "regex",
-          init: function (a, b) {
-            return { regex: e(a.data("validation" + b + "Regex")) };
+          init: function (a, e) {
+            return {
+              regex:
+                ((t = a.data("validation" + e + "Regex")),
+                new RegExp("^" + t + "$")),
+            };
+            var t;
           },
-          validate: function (c, b, a) {
+          validate: function (a, e, t) {
             return (
-              (!a.regex.test(b) && !a.negative) ||
-              (a.regex.test(b) && a.negative)
+              (!t.regex.test(e) && !t.negative) ||
+              (t.regex.test(e) && t.negative)
             );
           },
         },
         required: {
           name: "required",
-          init: function (a, b) {
+          init: function (a, e) {
             return {};
           },
-          validate: function (c, a, b) {
+          validate: function (a, e, t) {
             return (
-              !!(0 === a.length && !b.negative) ||
-              !!(a.length > 0 && b.negative)
+              !(0 !== e.length || t.negative) || !!(e.length > 0 && t.negative)
             );
           },
           blockSubmit: !0,
         },
         match: {
           name: "match",
-          init: function (a, c) {
-            var b = a
+          init: function (a, e) {
+            var t = a
               .parents("form")
               .first()
-              .find('[name="' + a.data("validation" + c + "Match") + '"]')
+              .find('[name="' + a.data("validation" + e + "Match") + '"]')
               .first();
             return (
-              b.bind("validation.validation", function () {
+              t.bind("validation.validation", function () {
                 a.trigger("change.validation", { submitting: !0 });
               }),
-              { element: b }
+              { element: t }
             );
           },
-          validate: function (c, b, a) {
+          validate: function (a, e, t) {
             return (
-              (b !== a.element.val() && !a.negative) ||
-              (b === a.element.val() && a.negative)
+              (e !== t.element.val() && !t.negative) ||
+              (e === t.element.val() && t.negative)
             );
           },
           blockSubmit: !0,
         },
         max: {
           name: "max",
-          init: function (a, b) {
-            return { max: a.data("validation" + b + "Max") };
+          init: function (a, e) {
+            return { max: a.data("validation" + e + "Max") };
           },
-          validate: function (c, b, a) {
+          validate: function (a, e, t) {
             return (
-              (parseFloat(b, 10) > parseFloat(a.max, 10) && !a.negative) ||
-              (parseFloat(b, 10) <= parseFloat(a.max, 10) && a.negative)
+              (parseFloat(e, 10) > parseFloat(t.max, 10) && !t.negative) ||
+              (parseFloat(e, 10) <= parseFloat(t.max, 10) && t.negative)
             );
           },
         },
         min: {
           name: "min",
-          init: function (a, b) {
-            return { min: a.data("validation" + b + "Min") };
+          init: function (a, e) {
+            return { min: a.data("validation" + e + "Min") };
           },
-          validate: function (c, b, a) {
+          validate: function (a, e, t) {
             return (
-              (parseFloat(b) < parseFloat(a.min) && !a.negative) ||
-              (parseFloat(b) >= parseFloat(a.min) && a.negative)
+              (parseFloat(e) < parseFloat(t.min) && !t.negative) ||
+              (parseFloat(e) >= parseFloat(t.min) && t.negative)
             );
           },
         },
         maxlength: {
           name: "maxlength",
-          init: function (a, b) {
-            return { maxlength: a.data("validation" + b + "Maxlength") };
+          init: function (a, e) {
+            return { maxlength: a.data("validation" + e + "Maxlength") };
           },
-          validate: function (c, b, a) {
+          validate: function (a, e, t) {
             return (
-              (b.length > a.maxlength && !a.negative) ||
-              (b.length <= a.maxlength && a.negative)
+              (e.length > t.maxlength && !t.negative) ||
+              (e.length <= t.maxlength && t.negative)
             );
           },
         },
         minlength: {
           name: "minlength",
-          init: function (a, b) {
-            return { minlength: a.data("validation" + b + "Minlength") };
+          init: function (a, e) {
+            return { minlength: a.data("validation" + e + "Minlength") };
           },
-          validate: function (c, b, a) {
+          validate: function (a, e, t) {
             return (
-              (b.length < a.minlength && !a.negative) ||
-              (b.length >= a.minlength && a.negative)
+              (e.length < t.minlength && !t.negative) ||
+              (e.length >= t.minlength && t.negative)
             );
           },
         },
         maxchecked: {
           name: "maxchecked",
-          init: function (a, c) {
-            var b = a
+          init: function (a, e) {
+            var t = a
               .parents("form")
               .first()
               .find('[name="' + a.attr("name") + '"]');
             return (
-              b.bind("click.validation", function () {
+              t.bind("click.validation", function () {
                 a.trigger("change.validation", { includeEmpty: !0 });
               }),
               {
-                maxchecked: a.data("validation" + c + "Maxchecked"),
-                elements: b,
+                maxchecked: a.data("validation" + e + "Maxchecked"),
+                elements: t,
               }
             );
           },
-          validate: function (b, c, a) {
+          validate: function (a, e, t) {
             return (
-              (a.elements.filter(":checked").length > a.maxchecked &&
-                !a.negative) ||
-              (a.elements.filter(":checked").length <= a.maxchecked &&
-                a.negative)
+              (t.elements.filter(":checked").length > t.maxchecked &&
+                !t.negative) ||
+              (t.elements.filter(":checked").length <= t.maxchecked &&
+                t.negative)
             );
           },
           blockSubmit: !0,
         },
         minchecked: {
           name: "minchecked",
-          init: function (a, c) {
-            var b = a
+          init: function (a, e) {
+            var t = a
               .parents("form")
               .first()
               .find('[name="' + a.attr("name") + '"]');
             return (
-              b.bind("click.validation", function () {
+              t.bind("click.validation", function () {
                 a.trigger("change.validation", { includeEmpty: !0 });
               }),
               {
-                minchecked: a.data("validation" + c + "Minchecked"),
-                elements: b,
+                minchecked: a.data("validation" + e + "Minchecked"),
+                elements: t,
               }
             );
           },
-          validate: function (b, c, a) {
+          validate: function (a, e, t) {
             return (
-              (a.elements.filter(":checked").length < a.minchecked &&
-                !a.negative) ||
-              (a.elements.filter(":checked").length >= a.minchecked &&
-                a.negative)
+              (t.elements.filter(":checked").length < t.minchecked &&
+                !t.negative) ||
+              (t.elements.filter(":checked").length >= t.minchecked &&
+                t.negative)
             );
           },
           blockSubmit: !0,
@@ -656,14 +679,14 @@
           type: "regex",
           regex: "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,10}",
           message:
-            "Not a valid email address<!-- data-validator-validemail-message to override -->",
+            "Not a valid email address\x3c!-- data-validator-validemail-message to override --\x3e",
         },
         passwordagain: {
           name: "Passwordagain",
           type: "match",
           match: "password",
           message:
-            "Does not match the given password<!-- data-validator-paswordagain-message to override -->",
+            "Does not match the given password\x3c!-- data-validator-paswordagain-message to override --\x3e",
         },
         positive: {
           name: "Positive",
@@ -680,89 +703,74 @@
           type: "regex",
           regex: "([+-]?\\d+(\\.\\d*)?([eE][+-]?[0-9]+)?)?",
           message:
-            "Must be a number<!-- data-validator-number-message to override -->",
+            "Must be a number\x3c!-- data-validator-number-message to override --\x3e",
         },
         integer: {
           name: "Integer",
           type: "regex",
           regex: "[+-]?\\d+",
           message:
-            "No decimal places allowed<!-- data-validator-integer-message to override -->",
+            "No decimal places allowed\x3c!-- data-validator-integer-message to override --\x3e",
         },
         positivenumber: {
           name: "Positivenumber",
           type: "min",
           min: 0,
           message:
-            "Must be a positive number<!-- data-validator-positivenumber-message to override -->",
+            "Must be a positive number\x3c!-- data-validator-positivenumber-message to override --\x3e",
         },
         negativenumber: {
           name: "Negativenumber",
           type: "max",
           max: 0,
           message:
-            "Must be a negative number<!-- data-validator-negativenumber-message to override -->",
+            "Must be a negative number\x3c!-- data-validator-negativenumber-message to override --\x3e",
         },
         required: {
           name: "Required",
           type: "required",
           message:
-            "This is required<!-- data-validator-required-message to override -->",
+            "This is required\x3c!-- data-validator-required-message to override --\x3e",
         },
         checkone: {
           name: "Checkone",
           type: "minchecked",
           minchecked: 1,
           message:
-            "Check at least one option<!-- data-validation-checkone-message to override -->",
+            "Check at least one option\x3c!-- data-validation-checkone-message to override --\x3e",
         },
       },
     },
-    c = function (a) {
-      return a.toLowerCase().replace(/(^|\s)([a-z])/g, function (c, a, b) {
-        return a + b.toUpperCase();
+    i = function (a) {
+      return a.toLowerCase().replace(/(^|\s)([a-z])/g, function (a, e, t) {
+        return e + t.toUpperCase();
       });
     },
-    d = function (b) {
-      var a = b.val(),
-        c = b.attr("type");
+    n = function (e) {
+      var t = e.val(),
+        i = e.attr("type");
       return (
-        "checkbox" === c && (a = b.is(":checked") ? a : ""),
-        "radio" === c &&
-          (a =
-            $('input[name="' + b.attr("name") + '"]:checked').length > 0
-              ? a
+        "checkbox" === i && (t = e.is(":checked") ? t : ""),
+        "radio" === i &&
+          (t =
+            a('input[name="' + e.attr("name") + '"]:checked').length > 0
+              ? t
               : ""),
-        a
+        t
       );
     };
-  function e(a) {
-    return new RegExp("^" + a + "$");
-  }
-  function f(d, a) {
-    for (
-      var e = Array.prototype.slice.call(arguments).splice(2),
-        b = d.split("."),
-        f = b.pop(),
-        c = 0;
-      c < b.length;
-      c++
-    )
-      a = a[b[c]];
-    return a[f].apply(this, e);
-  }
-  ($.fn.jqBootstrapValidation = function (a) {
-    return b.methods[a]
-      ? b.methods[a].apply(this, Array.prototype.slice.call(arguments, 1))
-      : "object" != typeof a && a
-      ? ($.error(
-          "Method " + a + " does not exist on jQuery.jqBootstrapValidation"
+  (a.fn.jqBootstrapValidation = function (e) {
+    return t.methods[e]
+      ? t.methods[e].apply(this, Array.prototype.slice.call(arguments, 1))
+      : "object" != typeof e && e
+      ? (a.error(
+          "Method " + e + " does not exist on jQuery.jqBootstrapValidation"
         ),
         null)
-      : b.methods.init.apply(this, arguments);
+      : t.methods.init.apply(this, arguments);
   }),
-    ($.jqBootstrapValidation = function (a) {
-      $(":input")
+    (a.jqBootstrapValidation = function (e) {
+      a(":input")
         .not("[type=image],[type=submit]")
         .jqBootstrapValidation.apply(this, arguments);
     });
